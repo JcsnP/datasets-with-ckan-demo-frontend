@@ -1,24 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
+import { Route, Routes } from "react-router-dom"
+
+// import pages
+import Home from './pages/Home/Home.js';
+import Datasets from './pages/Datasets/Datasets.js';
+import Organization from './pages/Organization/Organization.js';
+import Login from './pages/Login/Login.js';
+
+// import components
+import TheNavbar from './components/Navbar.js';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  const excludeRoutes = ['/login']
+
+  return(
+    <>
+      {!excludeRoutes.includes(window.location.pathname) && <TheNavbar />}
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='login' element={<Login />} />
+        <Route path='/datasets' element={<Datasets />} />
+        <Route path='/organization' element={<Organization />} />
+      </Routes>
+    </>
   );
 }
 
