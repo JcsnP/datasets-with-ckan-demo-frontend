@@ -41,8 +41,12 @@ export default function Home() {
 						This system was developed using the CKAN dataset management system.
 					</p>
 					<div className='d-flex flex-column gap-2 my-4 w-50'>
-						<Button variant="dark" className='shadow-sm' size='lg'>Register Now</Button>
-						<Button variant="light" className='shadow-sm' size='lg'>Login</Button>
+						<a href="/register">
+							<Button variant="dark" className='shadow-sm w-100' size='lg'>Register Now</Button>
+						</a>
+						<a href="/login">
+							<Button variant="light" className='shadow-sm w-100' size='lg'>Login</Button>
+						</a>
 					</div>
 				</Col>
 				<Col>

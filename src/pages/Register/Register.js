@@ -4,11 +4,12 @@ import { Container, Form, Button, Card, Row, Col } from 'react-bootstrap';
 import '../../styles/login.css'
 
 export default function Register(argument) {
+	document.title = 'Register';
 	return(
 		<Container className='vh-100 d-flex justify-content-center align-items-center'>
-			<div className='d-flex justify-content-center align-self-center'>
+			<div className='d-flex justify-content-center align-items-center'>
 				{/* login image eiei */}
-				<img className='w-50' src='https://static.vecteezy.com/system/resources/previews/008/853/660/original/object-element-ui-login-3d-illustration-png.png' alt='login' />
+				<img className='w-50 h-100' src='https://cdn3d.iconscout.com/3d/premium/thumb/article-writing-6373990-5272606.png' alt='login' />
 				{/* login panel eiei */}
 				<Card style={{width: '64rem'}}>
 					<Card.Body className='d-flex justify-content-center align-items-center'>
@@ -43,7 +44,9 @@ export default function Register(argument) {
 
 				      <h2 className='text-center my-2'>OR</h2>
 
-				      <Button variant="primary" type="submit" className='w-100'>Login</Button>
+							<a href="/login">
+				      	<Button variant="primary" className='w-100'>Login</Button>
+				      </a>
 				      
 						</Form>
 					</Card.Body>
