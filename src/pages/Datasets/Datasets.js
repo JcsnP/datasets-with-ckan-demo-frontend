@@ -11,6 +11,7 @@ import AllDatasets from '../../components/Datasets/AllDatasets.js';
 const tags = ['All Datasets', 'Education','Computer Science','Classification','Computer Vision','NLP','Data Visualization','Pre-Trained Model']
 
 export default function Datasets() {
+	document.title = 'Datasets';
 	return(
 		<Container className='my-5'>
 			<div className='d-flex justify-content-between align-items-center'>

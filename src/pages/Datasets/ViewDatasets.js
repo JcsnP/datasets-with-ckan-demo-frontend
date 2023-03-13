@@ -24,7 +24,8 @@ const datasets = {
 	}
 }
 
-export default function ViewDatasets() {
+export default function ViewDatasets({title = 'Datasets'}) {
+	document.title = title;
 	return(
 		<Container>
 			<h1>Dreamybull Words</h1>

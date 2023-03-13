@@ -27,6 +27,7 @@ const organization_data = [
 ]
 
 export default function Organization() {
+	document.title = 'Organization';
 	return(
 		<Container className='my-5'>
 			<div className='d-flex justify-content-between align-items-center'>
