@@ -9,3 +9,15 @@ body {
 .thai-lang {
   font-family: 'Noto Sans Thai', sans-serif;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.gray-hover {
+  transition: 0.1s all;
+}
+
+.gray-hover:hover {
+  background-color: #E0E0E0;
+}

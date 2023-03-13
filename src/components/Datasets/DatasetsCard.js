@@ -1,9 +1,12 @@
 import { Card } from 'react-bootstrap';
 import moment from 'moment';
 
+// import styles
+import '../../App.css';
+
 export default function DatasetsCard({id, title, author, subscriber, updated_at}) {
 	return(
-		<Card className='shadow-sm mb-2'>
+		<Card className='shadow-sm mb-2 gray-hover pointer' onClick={() => {window.location.href=`/datasets/${title}`}}>
 			<Card.Body>
 				<h5>{title}</h5>
 				<div className='d-flex flex-row justify-content-between align-items-center'>
