@@ -1,6 +1,6 @@
 import { Card, Button } from 'react-bootstrap';
 
-export default function OrganizationCard({ title, image, description }) {
+export default function GroupCard({ title, image, description }) {
 	return(
 		<Card className='mb-2 shadow-sm'>
       <Card.Img variant="top" src={image} className='w-100 p-4' />

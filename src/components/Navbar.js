@@ -9,7 +9,7 @@ export default function TheNavbar() {
 	        <Nav className="me-auto">
 	          <Nav.Link href="/datasets">Datasets</Nav.Link>
 	          <Nav.Link href="/organization">Organization</Nav.Link>
-	          <Nav.Link href="#pricing">Group</Nav.Link>
+	          <Nav.Link href="/group">Group</Nav.Link>
 	        </Nav>
 	        <Navbar.Collapse className='justify-content-end gap-2'>
 	        	<a href="login">

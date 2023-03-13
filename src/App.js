@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom"
 import Home from './pages/Home/Home.js';
 import Datasets from './pages/Datasets/Datasets.js';
 import Organization from './pages/Organization/Organization.js';
+import Group from './pages/Group/Group.js';
 import Login from './pages/Login/Login.js';
 import Register from './pages/Register/Register.js';
 
@@ -21,9 +22,10 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
-        <Route path='register' element={<Register />} />
+        <Route path='/register' element={<Register />} />
         <Route path='/datasets' element={<Datasets />} />
         <Route path='/organization' element={<Organization />} />
+        <Route path='group' element={<Group />} />
       </Routes>
     </>
   );
