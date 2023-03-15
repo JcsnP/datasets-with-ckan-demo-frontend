@@ -1,5 +1,6 @@
-import React from 'react';
-import { Container, Row, Col, Button, Stack } from 'react-bootstrap'
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap'
+import axios from 'axios';
 
 // import style
 import '../../styles/home.css';
@@ -8,30 +9,25 @@ import '../../App.css';
 // import components
 import OrganizationCard from '../../components/Organization/OrganizationCard.js';
 
-const organization_data = [
-	{
-		title: 'The Organization',
-		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Seal_of_the_United_States_Department_of_Homeland_Security.svg/800px-Seal_of_the_United_States_Department_of_Homeland_Security.svg.png',
-		description: 'Inside Kaggle you’ll find all the code & data you need to do your data science work. Use over 50,000 public datasets and 400,000 public notebooks to conquer any analysis in no time.'
-	},
-	{
-		title: 'The Organization',
-		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Seal_of_the_United_States_Department_of_Homeland_Security.svg/800px-Seal_of_the_United_States_Department_of_Homeland_Security.svg.png',
-		description: 'Inside Kaggle you’ll find all the code & data you need to do your data science work. Use over 50,000 public datasets and 400,000 public notebooks to conquer any analysis in no time.'
-	},
-	{
-		title: 'The Organization',
-		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Seal_of_the_United_States_Department_of_Homeland_Security.svg/800px-Seal_of_the_United_States_Department_of_Homeland_Security.svg.png',
-		description: 'Inside Kaggle you’ll find all the code & data you need to do your data science work. Use over 50,000 public datasets and 400,000 public notebooks to conquer any analysis in no time.'
-	},
-	{
-		title: 'The Organization',
-		image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Seal_of_the_United_States_Department_of_Homeland_Security.svg/800px-Seal_of_the_United_States_Department_of_Homeland_Security.svg.png',
-		description: 'Inside Kaggle you’ll find all the code & data you need to do your data science work. Use over 50,000 public datasets and 400,000 public notebooks to conquer any analysis in no time.'
-	},
-]
-
 export default function Home() {
+	const [organizations, setOrganizations] = useState([]);
+	const [organizationsLoaded, setOrganizationsLoaded] = useState(false);
+
+	useEffect(() => {
+		const fetchOrganizations = async() => {
+			const response = await axios.get(
+				'http://127.0.0.1:5001/ckanapi/v1/organizations/?order_by=packages'
+			);
+
+			if(response.status === 200) {
+				setOrganizations(response.data);
+				setOrganizationsLoaded(true);
+			}
+		}
+
+		fetchOrganizations();
+	}, []);
+
 	return (
 		<Container>
 			<Row className='my-5'>
@@ -57,14 +53,18 @@ export default function Home() {
 
 			{ /* organization */ }
 			<h2>Organization</h2>
-			<h4 className='text-muted thai-lang'>องค์กรทั้งหมด</h4>
-			<Stack direction='horizontal' gap={3}>
+			<h4 className='text-muted thai-lang'>องค์กรน่าสนใจ</h4>
+			<Row direction='horizontal' gap={3}>
 				{
-					organization_data.map((item, key) => (
-						<OrganizationCard title={item.title} image={item.image} description={item.description} key={key} />
-					))
+					organizationsLoaded && (
+						organizations.map((item, key) => (
+							<Col sm={3}>
+								<OrganizationCard display_name={item.display_name} image_display_url={item.image_display_url} description={item.description} num_followers={item.num_followers} package_count={item.package_count} key={key} />
+							</Col>
+						))
+					)
 				}
-			</Stack>	
+			</Row>	
 		</Container>
 	);
 }

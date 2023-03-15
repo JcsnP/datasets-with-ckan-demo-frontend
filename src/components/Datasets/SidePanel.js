@@ -1,10 +1,45 @@
+import React, { useState, useEffect } from 'react';
 import { Container, Card, Badge, Row, Col, Button } from 'react-bootstrap';
+import axios from 'axios';
+import { ThreeDots } from  'react-loader-spinner';
 
 // import other components
 import SearchDatasets from '../Search/SearchDatasets.js';
 
 export default function SidePanel() {
-	const tags = ['All Datasets', 'Education','Computer Science','Classification','Computer Vision','NLP','Data Visualization','Pre-Trained Model']
+	const [tags, setTags] = useState([]);
+	const [tagsLoaded, setTagsLoaded] = useState(false);
+
+	const [organizations, setOrganizations] = useState([]);
+	const [organizationsLoaded, setOrganizationsLoaded] = useState(false);
+
+	useEffect(() => {
+		const fetchTags = async() => {
+			const response = await axios.get(
+				'http://127.0.0.1:5001/ckanapi/v1/tags'
+			)
+
+			if(response.status === 200) {
+				setTags(response.data);
+				setTagsLoaded(true);
+			}
+		}
+
+		const fetchOrganizations = async() => {
+			const response = await axios.get(
+				'http://127.0.0.1:5001/ckanapi/v1/organizations/name'
+			)
+
+			if(response.status === 200) {
+				setOrganizations(response.data);
+				setOrganizationsLoaded(true);
+			}
+		}
+
+		fetchTags();
+		fetchOrganizations();
+	}, []);
+
 	return(
 		<Card className='shadow-sm'>
 			<Card.Body>
@@ -23,9 +58,26 @@ export default function SidePanel() {
 					</label>
 					<div>
 						{
-							tags.map((item, key) => (
-								<Badge pill bg='light' text='dark' className='mx-1 border'>{item}</Badge>
-							))
+							tagsLoaded && (
+								tags.map((item, key) => (
+									<Badge pill bg='light' text='dark' className='mx-1 border' key={key}>{item}</Badge>
+								))
+							)
+						}
+
+						{
+							!tagsLoaded && (
+								<ThreeDots 
+									height="50" 
+									width="50" 
+									radius="9"
+									color="#212529" 
+									ariaLabel="three-dots-loading"
+									wrapperStyle={{}}
+									wrapperClassName=""
+									visible={true}
+								/>
+							)
 						}
 					</div>
 				</div>
@@ -43,9 +95,26 @@ export default function SidePanel() {
 					</label>
 					<div>
 						{
-							tags.map((item, key) => (
-								<Badge pill bg='light' text='dark' className='mx-1 border'>{item}</Badge>
-							))
+							organizationsLoaded && (
+								organizations.map((item, key) => (
+									<Badge pill bg='light' text='dark' className='mx-1 border'>{item}</Badge>
+								))
+							)
+						}
+
+						{
+							!organizationsLoaded && (
+								<ThreeDots 
+									height="50" 
+									width="50" 
+									radius="9"
+									color="#212529" 
+									ariaLabel="three-dots-loading"
+									wrapperStyle={{}}
+									wrapperClassName=""
+									visible={true}
+								/>
+							)
 						}
 					</div>
 				</div>
