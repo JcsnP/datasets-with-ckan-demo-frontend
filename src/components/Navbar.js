@@ -19,30 +19,34 @@ export default function TheNavbar() {
 							<Nav.Link href="/organization">Organization</Nav.Link>
 							<Nav.Link href="/group">Group</Nav.Link>
 							<div className='d-flex w-100 justify-content-end gap-2'>
-								<a href="login">
-									{
-										!localStorage.getItem('token') && (
+								{
+									!localStorage.getItem('token') && (
+										<a href='/login'>
 											<Button variant='light'>Login</Button>
-										)
-									}
-									{
-										localStorage.getItem('token') && (
+										</a>							
+									)
+								}
+								{
+									localStorage.getItem('token') && (
+										<a href='/profile'>
 											<Button variant='light'>Profile</Button>
-										)
-									}
-								</a>
-								<a href="register">
-									{
-										!localStorage.getItem('token') && (
+										</a>
+									)
+								}
+								{
+									!localStorage.getItem('token') && (
+										<a href='/register'>
 											<Button variant='dark'>Register</Button>
-										)
-									}
-									{
-										localStorage.getItem('token') && (
+										</a>
+									)
+								}
+								{
+									localStorage.getItem('token') && (
+										<a href='/register'>
 											<Button variant='danger' onClick={() => {logout()}}>Logout</Button>
-										)
-									}
-								</a>
+										</a>
+									)
+								}
 							</div>
 						</Nav>
 					</Navbar.Collapse>
