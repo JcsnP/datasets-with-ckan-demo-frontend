@@ -10,14 +10,16 @@ import Group from './pages/Group/Group.js';
 import Login from './pages/Login/Login.js';
 import Register from './pages/Register/Register.js';
 import ViewDatasets from './pages/Datasets/ViewDatasets.js';
+import Profile from './pages/Profile/Profile.js';
 
 // import components
 import TheNavbar from './components/Navbar.js';
-import Footer from './components/Footer/Footer';
+import Footer from './components/Footer.js';
+import { useState } from 'react';
 
 function App() {
-  const excludeRoutes = ['/login', '/register']
-
+  const excludeRoutes = ['/login', '/register', '/login/', '/regsiter/']
+  // console.log(process.env.REACT_APP_CKAN_API)
   return(
     <>
       {!excludeRoutes.includes(window.location.pathname) && <TheNavbar />}
@@ -29,8 +31,9 @@ function App() {
         <Route path='/datasets/:datasets_name' element={<ViewDatasets />} />
         <Route path='/organization' element={<Organization />} />
         <Route path='/group' element={<Group />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
-      <Footer />
+      {!excludeRoutes.includes(window.location.pathname) && <Footer />}
     </>
   );
 }

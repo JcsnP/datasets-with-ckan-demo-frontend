@@ -1,20 +1,10 @@
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 
-export default function SearchDatasets() {
+export default function SearchDatasets({width = 100}) {
 	return(
-		<Form.Group className='mb-3'>
-			<Form.Label>
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-				  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-				  <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
-				  <path d="M21 21l-6 -6"></path>
-				</svg>
-				Search Datasets
-			</Form.Label>
-			<Form.Control
-				type='text'
-				placeholder='The Datasets...'
-			/>
-		</Form.Group>
+		<Form className={`d-flex gap-2 w-${width}`}>
+			<Form.Control type='text' placeholder='Search Datasets' className='py-2' />
+			<Button varian='primary'>SEARCH</Button>
+		</Form>
 	);
 }

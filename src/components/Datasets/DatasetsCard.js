@@ -4,13 +4,13 @@ import moment from 'moment';
 // import styles
 import '../../App.css';
 
-export default function DatasetsCard({id, title, image, description, author, created}) {
+export default function DatasetsCard({name, title, image = 'https://gravatar.com/avatar/373c0b737835b94074a42350012f267d?s=270&d=identicon', notes = '', author, metadata_modified}) {
 	return(
-		<Card className='shadow-sm mb-3 gray-hover pointer' onClick={() => {window.location.href=`/datasets/${title}`}}>
+		<Card className='shadow-sm mb-3 gray-hover pointer' onClick={() => {window.location.href=`/datasets/${name}`}}>
 			<Card.Img variant="top" src={image} />
-			<Card.Body>
+			<Card.Body className='d-flex flex-column justify-content-between' style={{height: '13rem'}}>
 				<Card.Title>{title}</Card.Title>
-				<Card.Text>{description}</Card.Text>
+				<Card.Text>{notes?.length >= 85 ? notes.slice(0, 85) + '...' : notes}</Card.Text>
 				<div className='d-flex flex-row justify-content-between align-items-center'>
 					{/* author */}
 					<div className='text-muted'>
@@ -30,7 +30,7 @@ export default function DatasetsCard({id, title, image, description, author, cre
 							<path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
 							<path d="M16 5l3 3"></path>
 						</svg>
-						{moment(created).startOf('hour').fromNow()}
+						{moment(metadata_modified).startOf('hour').fromNow()}
 					</div>
 				</div>
 			</Card.Body>
