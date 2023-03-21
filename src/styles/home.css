@@ -1,11 +1,7 @@
-body {
-	background-color: #F0F1F1;
-}
-
-/*
-body {
-	background-image: url('../images/background.jpg');
+.banner {
+	/* background-image: url('../images/background.jpg'); */
+	background-image: url('../../public/images/banner.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
+	height: 50vh;
 }
-*/

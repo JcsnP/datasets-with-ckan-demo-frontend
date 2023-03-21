@@ -1,9 +1,8 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
-@import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600&display=swap');
 
 body {
-  font-family: 'Tilt Neon', cursive;
+  font-family: 'Noto Sans Thai', sans-serif !important;
 }
 
 .thai-lang {

@@ -2,10 +2,9 @@ import { Navbar, Nav, Container, Button, NavDropdown } from 'react-bootstrap';
 
 export default function TheNavbar() {
 	return(
-		<Container className='my-4'>
-			<Navbar bg="light shadow-sm rounded" expand="lg">
+			<Navbar bg="light" className='py-3 border-bottom' expand="lg">
 				<Container>
-					<Navbar.Brand href="#home">Datasets with CKAN</Navbar.Brand>
+					<Navbar.Brand href="/">Datasets with CKAN</Navbar.Brand>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav className="me-auto w-100">
@@ -17,13 +16,12 @@ export default function TheNavbar() {
 									<Button variant='light'>Login</Button>
 								</a>
 								<a href="register">
-									<Button variant='dark'>Register</Button>
+									<Button variant='primary'>Register</Button>
 								</a>
 							</div>
 						</Nav>
 					</Navbar.Collapse>
 				</Container>
 			</Navbar>
-		</Container>
 	);
 }

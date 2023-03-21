@@ -4,11 +4,13 @@ import moment from 'moment';
 // import styles
 import '../../App.css';
 
-export default function DatasetsCard({id, title, author, metadata_modified}) {
+export default function DatasetsCard({id, title, description, author, created}) {
 	return(
 		<Card className='shadow-sm mb-2 gray-hover pointer' onClick={() => {window.location.href=`/datasets/${title}`}}>
+			<Card.Img variant="top" src="https://media.istockphoto.com/id/1073009100/photo/extreme-close-up-of-supercomputer.jpg?s=612x612&w=0&k=20&c=fCfRoPe75NNm2kqUHgnfkFDjJOQ0uHY8YBa6iyNRWGc=" />
 			<Card.Body>
-				<h5>{title}</h5>
+				<Card.Title>{title}</Card.Title>
+				<Card.Text>{description}</Card.Text>
 				<div className='d-flex flex-row justify-content-between align-items-center'>
 					{/* author */}
 					<div className='text-muted'>
@@ -28,7 +30,7 @@ export default function DatasetsCard({id, title, author, metadata_modified}) {
 						  <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
 						  <path d="M16 5l3 3"></path>
 						</svg>
-						{moment(metadata_modified).startOf('hour').fromNow()}
+						{moment(created).startOf('hour').fromNow()}
 					</div>
 				</div>
 			</Card.Body>
