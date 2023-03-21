@@ -13,6 +13,7 @@ import ViewDatasets from './pages/Datasets/ViewDatasets.js';
 
 // import components
 import TheNavbar from './components/Navbar.js';
+import Footer from './components/Footer/Footer';
 
 function App() {
   const excludeRoutes = ['/login', '/register']
@@ -29,6 +30,7 @@ function App() {
         <Route path='/organization' element={<Organization />} />
         <Route path='/group' element={<Group />} />
       </Routes>
+      <Footer />
     </>
   );
 }

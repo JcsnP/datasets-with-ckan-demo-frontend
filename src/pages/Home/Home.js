@@ -11,6 +11,7 @@ import OrganizationCard from '../../components/Organization/OrganizationCard.js'
 import Banner from '../../components/Home/Banner';
 import Stats from '../../components/Home/Stats';
 import RecommendDatasets from '../../components/Datasets/RecommendDatasets';
+import RecommendOrganizations from '../../components/Organization/RecommendOrganizations';
 
 export default function Home() {
 	const [organizations, setOrganizations] = useState([]);
@@ -39,9 +40,11 @@ export default function Home() {
 			
 			<Stats />
 
-
 			{ /* recommend datasets */ }
 			<RecommendDatasets />	
+
+			{ /* recommend organizations */ }
+			<RecommendOrganizations />
 		</>
 	);
 }

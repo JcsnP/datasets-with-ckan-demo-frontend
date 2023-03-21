@@ -22,7 +22,7 @@ export default function RecommendDatasets() {
       <Row>
         {
           datasets.map((item, key) => (
-            <Col sm={3}>
+            <Col sm={6} lg={3}>
               <DatasetsCard title={item.title} image={item.image} description={item.description} author={item.author} created={item.created} />
             </Col>
           ))
