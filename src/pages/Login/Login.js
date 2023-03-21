@@ -1,6 +1,6 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import { Container, Form, Button, Card, Row, Col } from 'react-bootstrap';
+import axios from 'axios';
 
 // import styles
 import '../../styles/login.css'
