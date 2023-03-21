@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Card, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 
@@ -46,6 +46,13 @@ export default function Register(argument) {
 		}
 	}
 
+	useState(() => {
+    // if user already login
+    if(localStorage.getItem('token')) {
+      window.location.replace('/');
+    }
+  }, []);
+
 	return(
 		<Container className='vh-100 d-flex justify-content-center align-items-center'>
 			<div className='d-flex justify-content-center align-items-center'>
@@ -81,12 +88,12 @@ export default function Register(argument) {
 				        <Form.Control type="password" placeholder="********" value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}} />
 				      </Form.Group>
 
-				      <Button variant="dark" className='w-100' onClick={() => {register()}}>Register</Button>
+				      <Button variant="primary" className='w-100' onClick={() => {register()}}>Register</Button>
 
 				      <h2 className='text-center my-2'>OR</h2>
 
 							<a href="/login">
-				      	<Button variant="primary" className='w-100'>Login</Button>
+				      	<Button variant="light" className='w-100 border'>Login</Button>
 				      </a>
 				      
 						</Form>

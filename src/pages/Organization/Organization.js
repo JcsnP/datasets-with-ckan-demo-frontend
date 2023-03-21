@@ -15,11 +15,11 @@ export default function Organization() {
 	useEffect(() => {
 		const fetchOrganizations = async() => {
 			const response = await axios.get(
-				'http://127.0.0.1:5001/ckanapi/v1/organizations'
+				`${process.env.REACT_APP_CKAN_API}/organizations`
 			);
 
-			if(response.status === 200) {
-				setOrganizations(response.data);
+			if(response.data.ok) {
+				setOrganizations(response.data.result);
 				setOrganizationsLoaded(true);
 			}
 		}
@@ -41,7 +41,7 @@ export default function Organization() {
 			<Row className='my-5'>
 				{
 					organizations.map((item, key) => (
-						<Col sm={3} className=''>
+						<Col sm={6} xl={3}>
 							<OrganizationCard display_name={item.display_name} image_display_url={item.image_display_url} description={item.description} num_followers={item.num_followers} package_count={item.package_count} key={key} />
 						</Col>
 					))

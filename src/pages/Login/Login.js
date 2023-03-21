@@ -7,27 +7,30 @@ import '../../styles/login.css'
 
 export default function Login() {
 	document.title = 'Login';
-
-	const [name, setName] = useState('');
+	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	useState(() => {
+    // if user already login
+    if(localStorage.getItem('token')) {
+      window.location.replace('/');
+    }
+  }, []);
 
 	const login = async() => {
 		const response = await axios.post(
-			'http://127.0.0.1:5001/ckanapi/v1/users/login',
+			`${process.env.REACT_APP_CKAN_API}/users/login`,
 			{
-				name: name,
+				name: username,
 				password: password
 			}
-		);
-		if(response.status === 200) {
-			console.log(response)
-			alert('success')
-
-			// set token
-			localStorage.setItem('token', response.data.token);
-
-			// redirect to homepage
-			window.location.href = '/';
+		)
+		console.log(response)
+		if(response.data.ok) {
+			alert('succes')
+			localStorage.setItem('token', response.data.token)
+			window.location.replace('/');
+		} else {
+			alert('Login Failed');
 		}
 	}
 
@@ -42,8 +45,8 @@ export default function Login() {
 						<Form className='w-100'>
 							<h1>Login</h1>
 							<Form.Group className="mb-3" controlId="formBasicEmail">
-				        <Form.Label>Username or Email</Form.Label>
-				        <Form.Control type="text" placeholder="JohnDoe" value={name} onChange={(e) => {setName(e.target.value)}} />
+								<Form.Label>Username or Email</Form.Label>
+				        <Form.Control type="text" placeholder="JohnDoe" value={username} onChange={(e) => {setUsername(e.target.value)}} />
 				      </Form.Group>
 
 				      <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -51,16 +54,12 @@ export default function Login() {
 				        <Form.Control type="password" placeholder="********" value={password} onChange={(e) => {setPassword(e.target.value)}} />
 				      </Form.Group>
 
-				      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-				        <Form.Check type="checkbox" label="Remember Me" />
-				      </Form.Group>
-
-				      <Button variant="primary" className='w-100' onClick={() => {login()}}>Login</Button>
+				      <Button variant="primary" onClick={login} className='w-100'>Login</Button>
 
 				      <h2 className='text-center my-2'>OR</h2>
 
 				      <a href="/register">
-				      	<Button variant="dark" className='w-100'>Register</Button>
+				      	<Button variant="light" className='w-100 border'>Register</Button>
 				      </a>
 						</Form>
 					</Card.Body>
