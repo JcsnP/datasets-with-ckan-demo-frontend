@@ -31,7 +31,7 @@ function App() {
         <Route path='/datasets/:datasets_name' element={<ViewDatasets />} />
         <Route path='/organization' element={<Organization />} />
         <Route path='/group' element={<Group />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/profile/:user_name' element={<Profile />} />
       </Routes>
       {!excludeRoutes.includes(window.location.pathname) && <Footer />}
     </>

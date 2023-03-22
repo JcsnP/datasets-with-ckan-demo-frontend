@@ -12,7 +12,7 @@ export default function Group(argument) {
 	useEffect(() => {
 		const fetchOrganizations = async() => {
 			const response = await axios.get(
-				`${process.env.REACT_APP_CKAN_API}/organizations`
+				`${process.env.REACT_APP_CKAN_API}/groups`
 			);
 
 			if(response.data.ok) {

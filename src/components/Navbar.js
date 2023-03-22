@@ -32,7 +32,7 @@ export default function TheNavbar() {
 								}
 								{
 									localStorage.getItem('token') && (
-										<a href="/profile">
+										<a href={`/profile/${localStorage.getItem('username')}`}>
 											<Button variant='light'>Profile</Button>
 										</a>
 									)

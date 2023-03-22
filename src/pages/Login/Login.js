@@ -28,6 +28,7 @@ export default function Login() {
 		if(response.data.ok) {
 			alert('succes')
 			localStorage.setItem('token', response.data.token)
+			localStorage.setItem('username', username)
 			window.location.replace('/');
 		} else {
 			alert('Login Failed');

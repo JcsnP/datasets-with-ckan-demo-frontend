@@ -2,30 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Container, Card, Stack, Badge, Table, Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
-const datasets = {
-	title: 'Load Data Set',
-	description: 'A CKAN Dataset is a collection of data resources (such as files), together with a description and other information (what is known as metadata), at a fixed URL.',
-	resources: [
-		{title: 'sample-load-datasets.csv', description: 'This is a sample resource added via url.'},
-		{title: 'sample-load-datasets.csv', description: 'This is a sample resource added via url.'},
-		{title: 'sample-load-datasets.csv', description: 'This is a sample resource added via url.'},
-	],
-	tags: ['csv', 'economy', 'geojson', 'kml', 'pdf'],
-	organization: {
-		'title': 'Dreamybull Org',
-		'description': 'Im about to blow'
-	},
-	subscriber: 12,
-	license: 'MIT',
-	additional_details: {
-		author: 'JcsnP',
-		maintainer: 'Maintainer',
-		version: 1.0,
-		last_updated: 'Mon Mar 13 2023 19:12:26 GMT+0700',
-		created: 'Mon Mar 13 2023 19:12:26 GMT+0700'
-	}
-}
-
 export default function ViewDatasets({title = 'Datasets'}) {
 	const {datasets_name} = useParams();
 	document.title = datasets_name;
