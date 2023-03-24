@@ -13,8 +13,19 @@ body {
   cursor: pointer;
 }
 
+.underline-hover {
+  transition: 0.4s all;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+}
+
+.underline-hover:hover {
+  border-top: 2px solid #E0E0E0;
+  border-bottom: 2px solid #E0E0E0;
+}
+
 .gray-hover {
-  transition: 0.1s all;
+  transition: 0.4s all;
 }
 
 .gray-hover:hover {

@@ -2,7 +2,7 @@ import { Container } from "react-bootstrap";
 
 export default function Footer() {
   return(
-    <div className='py-4' style={{backgroundColor: '#002B5B'}}>
+    <div className='py-4 w-100' style={{backgroundColor: '#002B5B', position: 'absolute'}}>
       <Container className='text-light fw-bold d-flex align-items-center justify-content-between'>
         <div>
           <h2>Dataset storage and management system</h2>

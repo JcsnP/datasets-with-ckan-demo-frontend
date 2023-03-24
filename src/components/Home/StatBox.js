@@ -16,16 +16,23 @@ export default function StatBox({title, api_resource}) {
         }
       })
   }, []);
-  return(
-    <div className='text-center text-light'>
-      {
-        resultLoaded && (
-          <div>
-            <h1>{result}</h1>
-            <h3>{title}</h3>
-          </div>
-        ) 
-      }
-    </div>
-  );
+  if(resultLoaded) {
+    return(
+      <div className='text-center text-light'>
+        <div>
+          <h1>{result}</h1>
+          <h3>{title}</h3>
+        </div>
+      </div>
+    );
+  } else {
+    return(
+      <div className='text-center text-light'>
+        <div>
+          <h1>0</h1>
+          <h3>{title}</h3>
+        </div>
+      </div>
+    );
+  }
 }
