@@ -33,10 +33,10 @@ export default function ResultDatasets() {
 	if(datasetsLoaded) {
 		return(
 			<Row className='my-3'>
-				<h4>Fround {datasets.length} Datasets</h4>
+				<h4>Found {datasets.length} Datasets</h4>
 				{
 					datasets.map((item, key) => (
-						<Col sm={3}>
+						<Col sm={6} md={3}>
 							<DatasetsCard name={item.name} title={item.title} notes={item.notes} image={item.image} author={item.author} metadata_modified={item.metadata_modified} key={key}/>
 						</Col>
 					))

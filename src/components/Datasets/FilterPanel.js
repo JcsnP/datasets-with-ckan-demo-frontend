@@ -18,22 +18,6 @@ export default function FilterPanel() {
             setTags(data.result);
           }
         })
-
-        fetch(`${process.env.REACT_APP_CKAN_API}/groups`)
-        .then((response) => response.json())
-        .then((data) => {
-          if(data.ok) {
-            setGroups(data.result);
-          }
-        })
-
-        fetch(`${process.env.REACT_APP_CKAN_API}/organizations`)
-        .then((response) => response.json())
-        .then((data) => {
-          if(data.ok) {
-            setOrganizations(data.result);
-          }
-        })
     } catch(error) {
       console.log(error);
     }
@@ -44,16 +28,6 @@ export default function FilterPanel() {
       <div className='p-4'>
         <h4 className='fw-bold'>Tags</h4>
         {tags.map(item => <Badge bg='primary' className='me-1'>{item}</Badge>)}
-      </div>
-
-      <div className='p-4'>
-        <h4 className='fw-bold'>Organizations</h4>
-        {organizations.map(item => <Badge bg='primary' className='me-1'>{item.title}</Badge>)}
-      </div>
-
-      <div className='p-4'>
-        <h4 className='fw-bold'>Groups</h4>
-        {groups.map(item => <Badge bg='primary' className='me-1'>{item.title}</Badge>)}
       </div>
     </Container>
   );
