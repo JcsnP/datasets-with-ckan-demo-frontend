@@ -18,16 +18,19 @@ import Footer from './components/Footer.js';
 function App() {
   const excludeRoutes = ['/login', '/register', '/login/', '/regsiter/']
   // console.log(process.env.REACT_APP_CKAN_API)
-  return(
+  return (
     <>
       {!excludeRoutes.includes(window.location.pathname) && <TheNavbar />}
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/datasets' element={<Datasets />} />
-        <Route path='/datasets/:datasets_name' element={<ViewDatasets />} />
-        <Route path='/profile/:user_name' element={<Profile />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/datasets" element={<Datasets />} />
+        <Route path="/datasets/:datasets_name" element={<ViewDatasets />} />
+        <Route path="/datasets/:datasets_name/discussion" element={<ViewDatasets />} />
+        <Route path="/datasets/:datasets_name/discussion/topics/:topic_id" element={<ViewDatasets />}
+        />
+        <Route path="/profile/:user_name" element={<Profile />} />
       </Routes>
       {!excludeRoutes.includes(window.location.pathname) && <Footer />}
     </>

@@ -13,7 +13,7 @@ import {
   Button,
   ToggleButton,
 } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,13 +21,18 @@ import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 
 // import components
 import ResourceCard from "../../components/Datasets/ResourceCard.js";
+import CreateTopicModal from "../../components/Discussion/CreateTopicModal.js";
+import AllTopics from "../../components/Discussion/AllTopics.js";
+import ViewTopic from "../../components/Discussion/ViewTopic.js";
 
 export default function ViewDatasets({ title = "Datasets" }) {
-  const { datasets_name } = useParams();
+  const { datasets_name, topic_id } = useParams();
   document.title = datasets_name;
+
   const [datasets, setDatasets] = useState({});
   const [datasetsLoaded, setDatasetsLoaded] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [topicModalShow, setTopicModalShow] = useState(false);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_CKAN_API}/packages/${datasets_name}`)
@@ -37,7 +42,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
           setDatasets(data.result);
           setDatasetsLoaded(true);
         }
-      });
+  }, []);
 
     // fetch bookmarked status
     axios
@@ -110,7 +115,10 @@ export default function ViewDatasets({ title = "Datasets" }) {
               onChange={bookmarked}
             >
               {isBookmarked ? (
-                <FontAwesomeIcon  icon={faBookmark} style={{ color: "#ffffff" }} />
+                <FontAwesomeIcon
+                  icon={faBookmark}
+                  style={{ color: "#ffffff" }}
+                />
               ) : (
                 <FontAwesomeIcon icon={faBookmark} />
               )}
@@ -119,7 +127,12 @@ export default function ViewDatasets({ title = "Datasets" }) {
           </div>
         </div>
         <hr />
-        <Tabs className="mb-3" defaultActiveKey="data">
+        <Tabs
+          className="mb-3"
+          defaultActiveKey={
+            window.location.pathname.split("/").pop() === "discussion" ? "discussion" : "data"
+          }
+        >
           <Tab eventKey="data" title="Data">
             {/* data, home */}
             <>
@@ -205,6 +218,33 @@ export default function ViewDatasets({ title = "Datasets" }) {
           </Tab>
           <Tab eventKey="discussion" title="Discussion">
             <>{/* discussion */}</>
+            <CreateTopicModal
+              package_id={datasets.id}
+              show={topicModalShow}
+              close={() => {
+                setTopicModalShow(false);
+              }}
+            />
+
+            {/* all topics */}
+            {datasets_name && !topic_id && (
+              <>
+                <div className="w-100 d-flex flex-rows align-items-center justify-content-between my-5">
+                  <h4 className="fw-bold">Discussions</h4>
+                  <Button
+                    variant="primary"
+                    onClick={() => {
+                      setTopicModalShow(true);
+                    }}
+                  >
+                    New Topic
+                  </Button>
+                </div>
+                <AllTopics package_id={datasets.id} />
+              </>
+            )}
+            {/* display topic and comment */}
+            {topic_id && <ViewTopic />}
           </Tab>
         </Tabs>
       </Container>
