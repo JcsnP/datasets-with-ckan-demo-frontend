@@ -8,7 +8,7 @@ export default function CreateTopicModal({package_id, show, close}) {
 
   const createTopic = async() => {
     const response = await axios.post(
-      "http://127.0.0.1:5001/ckanapi/v1/discussion/topics",
+      `${process.env.REACT_APP_CKAN_API}/discussion/topics`,
       {
         package_id: package_id,
         title: title,

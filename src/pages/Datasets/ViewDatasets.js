@@ -64,7 +64,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
       .catch((error) => console.log(error));
   }, []);
 
-  const bookmarked = async () => {
+  const bookmarked = async() => {
 		// check current status
 		if(isBookmarked) {
 			// delete following status
@@ -72,8 +72,8 @@ export default function ViewDatasets({ title = "Datasets" }) {
         `${process.env.REACT_APP_CKAN_API}/packages/bookmarked/${datasets.name}`,
         {
           headers: {
+            "Authorization": localStorage.getItem("token"),
             "Content-Type": "application/json",
-            Authorization: localStorage.getItem("token"),
           },
         }
       );
@@ -87,7 +87,8 @@ export default function ViewDatasets({ title = "Datasets" }) {
         {
           headers: {
             Authorization: localStorage.getItem("token"),
-            "Content-Type": "application/json",
+            "Content-Type": "application/json;charset=UTF-8",
+            "Access-Control-Allow-Origin": "*",
           },
         }
       );
