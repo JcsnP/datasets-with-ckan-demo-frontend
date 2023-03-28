@@ -24,10 +24,11 @@ export default function Login() {
 				password: password
 			}
 		)
-		console.log(response)
+		
 		if(response.data.ok) {
 			alert('succes')
 			localStorage.setItem('token', response.data.token)
+			localStorage.setItem('username', username)
 			window.location.replace('/');
 		} else {
 			alert('Login Failed');

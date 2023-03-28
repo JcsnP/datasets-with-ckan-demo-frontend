@@ -18,7 +18,7 @@ export default function RecommendDatasets() {
       })
   }, []);
   return(
-    <Container className='my-5'>
+    <Container className='py-5'>
       <h1 className='fw-bold'>Datasets</h1>
       <h4 className='text-muted'>รายการดาต้าเซ็ทที่แนะนำ</h4>
 
@@ -48,7 +48,6 @@ export default function RecommendDatasets() {
                   <Placeholder xs={7} /> <Placeholder xs={4} /> <Placeholder xs={4} />{' '}
                   <Placeholder xs={6} /> <Placeholder xs={8} />
                 </Placeholder>
-                <Placeholder.Button variant="primary" xs={6} />
               </Card.Body>
             </Card>
           )

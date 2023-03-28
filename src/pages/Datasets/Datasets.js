@@ -10,6 +10,7 @@ import AllDatasets from '../../components/Datasets/AllDatasets.js';
 import Banner from '../../components/Datasets/Banner';
 import FilterPanel from '../../components/Datasets/FilterPanel';
 import SearchDatasets from '../../components/Search/SearchDatasets';
+import ResultDatasets from '../../components/Datasets/ResultDatasets.js';
 
 const tags = ['All Datasets', 'Education','Computer Science','Classification','Computer Vision','NLP','Data Visualization','Pre-Trained Model']
 
@@ -26,6 +27,9 @@ export default function Datasets() {
 					<Container  className='my-5'>
 						{/* search datasets */}
         		<SearchDatasets />
+
+        		{/* result */}
+        		<ResultDatasets />
 					</Container>
 				</Col>
 			</Row>
