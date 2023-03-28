@@ -17,7 +17,6 @@ import Footer from './components/Footer.js';
 
 function App() {
   const excludeRoutes = ['/login', '/register', '/login/', '/regsiter/']
-  // console.log(process.env.REACT_APP_CKAN_API)
   return (
     <>
       {!excludeRoutes.includes(window.location.pathname) && <TheNavbar />}

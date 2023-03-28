@@ -42,7 +42,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
           setDatasets(data.result);
           setDatasetsLoaded(true);
         }
-  }, []);
+      }, []);
 
     // fetch bookmarked status
     axios
@@ -64,31 +64,28 @@ export default function ViewDatasets({ title = "Datasets" }) {
       .catch((error) => console.log(error));
   }, []);
 
-  const bookmarked = async() => {
-		// check current status
-		if(isBookmarked) {
-			// delete following status
-			const response = await axios.delete(
+  const bookmarked = async () => {
+    // check current status
+    if (isBookmarked) {
+      // delete following status
+      const response = await axios.delete(
         `${process.env.REACT_APP_CKAN_API}/packages/bookmarked/${datasets.name}`,
         {
           headers: {
-            "Authorization": localStorage.getItem("token"),
+            Authorization: localStorage.getItem("token"),
             "Content-Type": "application/json",
           },
         }
       );
-			console.log(response)
-			if(!response.data.bookmarked)
-				setIsBookmarked(false);
-		} else {
+      console.log(response);
+      if (!response.data.bookmarked) setIsBookmarked(false);
+    } else {
       // following dataset
       const response = await axios.post(
         `${process.env.REACT_APP_CKAN_API}/packages/bookmarked/${datasets.name}`,
         {
           headers: {
             Authorization: localStorage.getItem("token"),
-            "Content-Type": "application/json;charset=UTF-8",
-            "Access-Control-Allow-Origin": "*",
           },
         }
       );
@@ -97,6 +94,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
     }
   };
 
+  /* window.location.pathname.split("/").pop() */
   if (datasetsLoaded) {
     return (
       <Container className="my-5">
@@ -131,7 +129,9 @@ export default function ViewDatasets({ title = "Datasets" }) {
         <Tabs
           className="mb-3"
           defaultActiveKey={
-            window.location.pathname.split("/").pop() === "discussion" ? "discussion" : "data"
+            window.location.pathname.split("/")[3] === "discussion"
+              ? "discussion"
+              : "data"
           }
         >
           <Tab eventKey="data" title="Data">
