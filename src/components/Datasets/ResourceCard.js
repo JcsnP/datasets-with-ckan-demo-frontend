@@ -1,22 +1,23 @@
 import {Card} from 'react-bootstrap';
 import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
-export default function ResourceCard({name, url, size, metadata_modified, format}) {
-
+export default function ResourceCard({name, url, metadata_modified, format, resource_size}) {
+	console.log(resource_size / 1024)
 	return(
 		<Card className='mb-3 shadow-sm'>
 			<Card.Body className='d-flex w-100 flex-row align-items-center justify-content-between'>
-				<div>
+				<div className='w-100'>
 					<h4>{name ? name : 'no title'}</h4>
-					<small className='text-muted'>{moment(metadata_modified).format('LL')}</small>
+					<div className='d-flex gap-3'>
+						<small className='text-muted'>{moment(metadata_modified).format('LL')}</small>
+						•
+						<small className="text-muted">{(resource_size / 1024).toPrecision(2)} KB</small>
+					</div>
 				</div>
 				<a href={url}>
-					<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-download" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					  <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-					  <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
-					  <path d="M7 11l5 5l5 -5"></path>
-					  <path d="M12 4l0 12"></path>
-					</svg>
+					<FontAwesomeIcon icon={faArrowDown} size="xl" />
 				</a>
 			</Card.Body>
 		</Card>

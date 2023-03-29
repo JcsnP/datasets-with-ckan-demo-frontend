@@ -1,3 +1,4 @@
+import {useState, useEffect} from 'react';
 import { Card } from 'react-bootstrap';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,11 +7,23 @@ import { faUser, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 // import styles
 import '../../App.css';
 
-export default function DatasetsCard({name, title, image = 'https://gravatar.com/avatar/373c0b737835b94074a42350012f267d?s=270&d=identicon', notes = '', author, metadata_modified}) {
+export default function DatasetsCard({id, name, title, image = 'https://gravatar.com/avatar/373c0b737835b94074a42350012f267d?s=270&d=identicon', notes = '', author, metadata_modified}) {
+	const [thumbnail, setThumbnail] = useState(null);
+
+	useEffect(() => {
+		fetch(`${process.env.REACT_APP_CKAN_API}/packages/${id}/thumbnail`)
+			.then((response) => response.json())
+			.then((data) => {
+				if(data.ok) {
+					setThumbnail(data.result);
+				}
+			})
+	}, []);
+
 	return(
 		<Card className='shadow-sm mb-3 pointer' onClick={() => {window.location.href=`/datasets/${name}`}}>
 			<div className='overflow-hidden' style={{height: '120px'}}>
-				<Card.Img variant="top" src={image} />
+				<Card.Img variant="top" src={thumbnail ? `data:image/png;base64,${thumbnail}` : image} />
 			</div>
 			<Card.Body className='d-flex flex-column justify-content-between' style={{height: '9rem'}}>
 				<Card.Title>{title}</Card.Title>
@@ -22,7 +35,7 @@ export default function DatasetsCard({name, title, image = 'https://gravatar.com
 				{/* author */}
 				<div className='text-muted'>
 					<FontAwesomeIcon icon={faUser} size="sm" className='me-1' />
-					<a href={`/users/${author}`}>
+					<a href={`/profile/${author}`}>
 						{author ? author : 'No Name'}
 					</a>
 				</div>

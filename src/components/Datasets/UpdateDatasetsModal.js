@@ -6,7 +6,7 @@ export default function UpdateDatasetsModal({show, close, datasets}) {
 
 	const [title, setTitle] = useState(datasets.title);
 	const [notes, setNotes] = useState(datasets.notes);
-	const [tags, setTags] = useState(datasets.tags.map(item => item.name));
+	const [tags, setTags] = useState(datasets.tags?.map(item => item.name));
 	const [source, setSource] = useState(datasets.url);
 	const [author, setAuthor] = useState(datasets.author);
 	const [authorEmail, setAuthorEmail] = useState(datasets.author_email)
@@ -21,6 +21,7 @@ export default function UpdateDatasetsModal({show, close, datasets}) {
 	}, []);
 
 	const create_tags = (tags_string) => {
+		tags_string = tags_string.toString();
 		let tags_result = []
 		tags_string.split(',').map(item => (
 			tags_result.push({name: item})
@@ -70,7 +71,7 @@ export default function UpdateDatasetsModal({show, close, datasets}) {
           
           <FloatingLabel controlId="floatingTextarea" label="Title" className="mb-3">
 		        <Form.Control type="text" placeholder='title' value={title} onChange={(e) => {setTitle(e.target.value)}} />
-		        <Form.Text id="newDatasetsName" muted>Your new datasets link will be : http://127.0.0.1:5001/datasets/{title.toLowerCase().replaceAll(",", "").replaceAll(" ", "-")}</Form.Text>
+		        <Form.Text id="newDatasetsName" muted>Your new datasets link will be : http://127.0.0.1:3000/datasets/{title.toLowerCase().replaceAll(",", "").replaceAll(" ", "-")}</Form.Text>
 		      </FloatingLabel>
 
 		      <FloatingLabel controlId="floatingTextarea2" label="Notes" className="mb-3">

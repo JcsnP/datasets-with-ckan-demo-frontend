@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export default function SearchDatasets({width = 100}) {
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [name, setName] = useState(searchParams.get('q'));
+	const [name, setName] = useState(searchParams.get('q') || '');
 	
 	const search = async() => {
 		// const response = await axios.get(`${process.env.REACT_APP_CKAN_API}/packages/package?q=`)

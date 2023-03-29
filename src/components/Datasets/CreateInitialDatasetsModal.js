@@ -30,7 +30,7 @@ export default function CreateInitialDatasetsModal({ show, close }) {
       `${process.env.REACT_APP_CKAN_API}/packages/`,
       {
         title: title,
-        name: link.toLowerCase().replaceAll(",", "").replaceAll(" ", "-"),
+        name: title.toLowerCase().replaceAll(",", "").replaceAll(" ", "-"),
         notes: notes,
         url: source,
         author: localStorage.getItem('username')
@@ -73,7 +73,7 @@ export default function CreateInitialDatasetsModal({ show, close }) {
 
             <FloatingLabel controlId="floatingTextarea" label="Datasets Title" className="mb-3">
               <Form.Control type="text" placeholder='title' className="mb-2" value={title} onChange={(e) => {setTitle(e.target.value)}} />
-              <Form.Text id="newDatasetsName" muted>Your datasets link will be : http://127.0.0.1:5001/datasets/
+              <Form.Text id="newDatasetsName" muted>Your datasets link will be : http://127.0.0.1:3000/datasets/
                 <span className="border px-1 w-100 rounded bg-light">{title.length === 0 ? "<datasets name>" : title.toLowerCase().replaceAll(",", "").replaceAll(" ", "-")}</span>
               </Form.Text>
             </FloatingLabel>

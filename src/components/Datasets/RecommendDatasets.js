@@ -28,7 +28,7 @@ export default function RecommendDatasets() {
             {
               datasets.map((item, key) => (
                 <Col sm={6} lg={3}>
-                  <DatasetsCard name={item.name} title={item.title} image={item.image} notes={item.notes} author={item.author} metadata_modified={item.metadata_modified} />
+                  <DatasetsCard id={item.id} name={item.name} title={item.title} image={item.image} notes={item.notes} author={item.author} metadata_modified={item.metadata_modified} />
                 </Col>
               ))
             }

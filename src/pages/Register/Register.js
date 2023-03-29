@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Form, Button, Card, Row, Col } from 'react-bootstrap';
+import { Container, Form, Button, Card, Row, Col, FloatingLabel } from 'react-bootstrap';
 import axios from 'axios';
 
 // import styles
@@ -60,41 +60,35 @@ export default function Register(argument) {
 				<img className='w-50 h-100' src='https://cdn3d.iconscout.com/3d/premium/thumb/article-writing-6373990-5272606.png' alt='login' />
 				{/* login panel eiei */}
 				<Card style={{width: '64rem'}}>
-					<Card.Body className='d-flex justify-content-center align-items-center'>
+					<Card.Body className='d-flex justify-content-center align-items-center p-5'>
 						<Form className='w-100'>
-						 	<h1>Register</h1>
-							<Form.Group className="mb-3" controlId="formBasicUsername">
-				        <Form.Label>Username</Form.Label>
-				        <Form.Control type="text" placeholder="JohnDoe" value={name} onChange={(e) => {setName(e.target.value)}} />
-				      </Form.Group>
+						 	<h1 className="fw-bold text-uppercase">Register</h1>
 
-				      <Form.Group className="mb-3" controlId="formBasicFullname">
-				        <Form.Label>Full Name</Form.Label>
-				        <Form.Control type="text" placeholder="John Doe" value={fullname} onChange={(e) => {setFullname(e.target.value)}} />
-				      </Form.Group>
+						 	<FloatingLabel controlId="floatingTextarea" label="Username" className="mb-3">
+				        <Form.Control type="text" placeholder='Johndoe' value={name} onChange={(e) => {setName(e.target.value)}} />
+				      </FloatingLabel>
 
-				      <Form.Group className="mb-3" controlId="formBasicEmail">
-				        <Form.Label>Email</Form.Label>
-				        <Form.Control type="email" placeholder="johndoe@gmail.com" value={email} onChange={(e) => {setEmail(e.target.value)}} />
-				      </Form.Group>
+				      <FloatingLabel controlId="floatingTextarea" label="Fullname" className="mb-3">
+				        <Form.Control type="text" placeholder='John doe' value={fullname} onChange={(e) => {setFullname(e.target.value)}} />
+				      </FloatingLabel>
 
-				      <Form.Group className="mb-3" controlId="formBasicPassword">
-				        <Form.Label>Password</Form.Label>
-				        <Form.Control type="password" placeholder="********" value={password} onChange={(e) => {setPassword(e.target.value)}} />
-				      </Form.Group>
+				      <FloatingLabel controlId="floatingTextarea" label="Email" className="mb-3">
+				        <Form.Control type="email" placeholder='johndoe@gmail.com' value={email} onChange={(e) => {setEmail(e.target.value)}} />
+				      </FloatingLabel>
 
-				      <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
-				        <Form.Label>Confirm Password</Form.Label>
-				        <Form.Control type="password" placeholder="********" value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}} />
-				      </Form.Group>
+				      <FloatingLabel controlId="floatingTextarea" label="Password" className="mb-3">
+				        <Form.Control type="password" placeholder='********' value={password} onChange={(e) => {setPassword(e.target.value)}} />
+				      </FloatingLabel>
+
+				      <FloatingLabel controlId="floatingTextarea" label="Confirm Password" className="mb-3">
+				        <Form.Control type="password" placeholder='********' value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}} />
+				      </FloatingLabel>
 
 				      <Button variant="primary" className='w-100' onClick={() => {register()}}>Register</Button>
 
-				      <h2 className='text-center my-2'>OR</h2>
-
-							<a href="/login">
-				      	<Button variant="light" className='w-100 border'>Login</Button>
-				      </a>
+				      <div className="mt-2 text-end">
+								Already have an account? <a href="/login">Login</a>
+							</div>
 				      
 						</Form>
 					</Card.Body>

@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { Container, Card, Badge } from 'react-bootstrap';
+import { Container, Card, Badge, ListGroup } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTag } from '@fortawesome/free-solid-svg-icons'
 
 // import components
 // import FilterBox from './FilterPanel.js';
@@ -26,8 +28,19 @@ export default function FilterPanel() {
   return(
     <Container>
       <div className='p-4'>
-        <h4 className='fw-bold'>Tags</h4>
-        {tags.map(item => <Badge bg='primary' className='me-1'>{item}</Badge>)}
+        <h4 className='fw-bold'>
+          <FontAwesomeIcon icon={faTag} size="sm" />
+          Tags
+        </h4>
+        <ListGroup variant="flush">
+        {
+          tags.map((item,key) => 
+            <a href={`${window.location.href}&tags=${item}`} className='text-decoration-none' key={key}>
+              <ListGroup.Item className='rounded mb-1'>{item}</ListGroup.Item>
+            </a>
+          )
+        }
+        </ListGroup>
       </div>
     </Container>
   );

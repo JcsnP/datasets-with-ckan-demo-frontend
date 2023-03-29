@@ -172,9 +172,9 @@ export default function ViewDatasets({ title = "Datasets" }) {
                     <ResourceCard
                       name={item.name}
                       url={item.url}
-                      size={item.size}
                       metadata_modified={item.metadata_modified}
                       format={item.format}
+                      resource_size={item.size}
                     />
                   ))}
 
