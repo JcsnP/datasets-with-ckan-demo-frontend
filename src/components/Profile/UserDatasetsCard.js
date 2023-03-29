@@ -54,7 +54,7 @@ export default function UserDatasetsCard ({creator_user_id, name, notes, metadat
         <div className="my-2" style={{ cursor: "pointer" }}>
           Bookmark
         </div>
-        {creator_user_id === Cookies.get("user_id") && (
+        {creator_user_id === localStorage.getItem("user_id") && (
           <>
             <div className="my-2" style={{ cursor: "pointer" }}>
               Edit

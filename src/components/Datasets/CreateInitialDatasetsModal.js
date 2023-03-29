@@ -6,6 +6,9 @@ import {
   Card,
   Dropdown,
   DropdownButton,
+  FloatingLabel,
+  Row,
+  Col
 } from "react-bootstrap";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,6 +21,7 @@ export default function CreateInitialDatasetsModal({ show, close }) {
   const [link, setLink] = useState("");
   const [title, setTitle] = useState("");
   const [notes, setNotes] = useState("");
+  const [source, setSource] = useState("");
   const [success, setSuccess] = useState(false);
 
   const createDatasets = async () => {
@@ -28,6 +32,8 @@ export default function CreateInitialDatasetsModal({ show, close }) {
         title: title,
         name: link.toLowerCase().replaceAll(",", "").replaceAll(" ", "-"),
         notes: notes,
+        url: source,
+        author: localStorage.getItem('username')
       },
       {
         headers: {
@@ -58,52 +64,33 @@ export default function CreateInitialDatasetsModal({ show, close }) {
           onHide={close}
           backdrop="static"
           keyboard={false}
+          centered
         >
           <Modal.Header closeButton>
             <Modal.Title>Create Datasets</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form>
-              <Form.Group className="mb-3 fw-bold">
-                <Form.Label>Datasets Title</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter Datasets Title"
-                  onChange={(e) => {
-                    setLink(e.target.value);
-                    setTitle(e.target.value);
-                  }}
-                />
-                <Form.Text className="text-muted d-flex gap-1 align-items-center">
-                  http://127.0.0.1:5001/datasets/
-                  <div className="border w-100 border rounded p-1">
-                    {link.length === 0
-                      ? "‎"
-                      : link
-                          .toLowerCase()
-                          .replaceAll(",", "")
-                          .replaceAll(" ", "-")}
-                  </div>
-                </Form.Text>
-              </Form.Group>
 
-              <Form.Group controlId="formFileMultiple" className="mb-2 fw-bold">
-                <Form.Label>Multiple files input example</Form.Label>
-                <Form.Control type="file" multiple />
-              </Form.Group>
+            <FloatingLabel controlId="floatingTextarea" label="Datasets Title" className="mb-3">
+              <Form.Control type="text" placeholder='title' className="mb-2" value={title} onChange={(e) => {setTitle(e.target.value)}} />
+              <Form.Text id="newDatasetsName" muted>Your datasets link will be : http://127.0.0.1:5001/datasets/
+                <span className="border px-1 w-100 rounded bg-light">{title.length === 0 ? "<datasets name>" : title.toLowerCase().replaceAll(",", "").replaceAll(" ", "-")}</span>
+              </Form.Text>
+            </FloatingLabel>
 
-              <Form.Group className="mb-2">
-                <Form.Label className="fw-bold">Notes</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  placeholder="Enter Datasets Title"
-                  onChange={(e) => {
-                    setNotes(e.target.value);
-                  }}
-                  style={{ height: "100px" }}
-                />
-              </Form.Group>
-            </Form>
+            <FloatingLabel controlId="floatingTextarea" label="Source" className="mb-3">
+              <Form.Control type="text" placeholder="source, url" value={source} onChange={(e) => {setSource(e.target.value)}} />
+            </FloatingLabel>
+
+            <FloatingLabel controlId="floatingTextarea2" label="Notes" className="mb-3">
+              <Form.Control as="textarea" placeholder="Leave a Noes here" style={{ height: '100px' }} value={notes} onChange={(e) => {setNotes(e.target.value)}} />
+            </FloatingLabel>
+
+            <Form.Group controlId="formFileMultiple" className="mb-3 fw-bold">
+              <Form.Label>Upload Datasets Files</Form.Label>
+              <Form.Control type="file" multiple />
+            </Form.Group>
+
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={close}>

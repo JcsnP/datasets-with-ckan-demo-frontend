@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Container, Form, Button, Card, Row, Col } from 'react-bootstrap';
+import { Container, Form, Button, Card, Row, Col, FloatingLabel } from 'react-bootstrap';
 import axios from 'axios';
 import Cookies from "js-cookie";
 import { decodeToken } from "react-jwt";
@@ -30,7 +30,8 @@ export default function Login() {
 		if(response.data.ok) {
 			alert('succes')
 			localStorage.setItem('token', response.data.token)
-			localStorage.setItem('username', username)
+			localStorage.setItem('username', decodeToken(response.data.token).name)
+			localStorage.setItem('fullname', decodeToken(response.data.token).fullname)
 			localStorage.setItem('user_id', decodeToken(response.data.token).id)
 			// decode token
 			// Cookies.set('user_id', decodeToken(response.data.token).id)
@@ -47,27 +48,24 @@ export default function Login() {
 				{/* login image eiei */}
 				<img className='w-50' src='https://static.vecteezy.com/system/resources/previews/008/853/660/original/object-element-ui-login-3d-illustration-png.png' alt='login' />
 				{/* login panel eiei */}
-				<Card style={{width: '64rem'}}>
-					<Card.Body className='d-flex justify-content-center align-items-center'>
+				<Card style={{width: '64rem', height: '32rem'}}>
+					<Card.Body className='d-flex justify-content-center align-items-center p-5'>
 						<Form className='w-100'>
-							<h1>Login</h1>
-							<Form.Group className="mb-3" controlId="formBasicEmail">
-								<Form.Label>Username or Email</Form.Label>
-				        <Form.Control type="text" placeholder="JohnDoe" value={username} onChange={(e) => {setUsername(e.target.value)}} />
-				      </Form.Group>
+							<h1 className='fw-bold text-uppercase text-center'>Login</h1>
 
-				      <Form.Group className="mb-3" controlId="formBasicPassword">
-				        <Form.Label>Password</Form.Label>
-				        <Form.Control type="password" placeholder="********" value={password} onChange={(e) => {setPassword(e.target.value)}} />
-				      </Form.Group>
+							<FloatingLabel controlId="floatingTextarea" label="Username" className="mb-3">
+				        <Form.Control type="text" placeholder='Johndoe' value={username} onChange={(e) => {setUsername(e.target.value)}} />
+				      </FloatingLabel>
 
-				      <Button variant="primary" onClick={login} className='w-100'>Login</Button>
+				      <FloatingLabel controlId="floatingTextarea" label="Password" className="mb-3">
+				        <Form.Control type="password" placeholder='********' value={password} onChange={(e) => {setPassword(e.target.value)}} />
+				      </FloatingLabel>
 
-				      <h2 className='text-center my-2'>OR</h2>
+				      <Button variant="primary" onClick={login} size="lg" className='w-100'>Login</Button>
 
-				      <a href="/register">
-				      	<Button variant="light" className='w-100 border'>Register</Button>
-				      </a>
+				      <div className="mt-2 text-end">
+				      	Not a member ? <a href="/register">Register</a>
+				      </div>
 						</Form>
 					</Card.Body>
 				</Card>

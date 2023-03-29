@@ -22,7 +22,9 @@ export default function DatasetsCard({name, title, image = 'https://gravatar.com
 				{/* author */}
 				<div className='text-muted'>
 					<FontAwesomeIcon icon={faUser} size="sm" className='me-1' />
-					{author ? author : 'No Name'}
+					<a href={`/users/${author}`}>
+						{author ? author : 'No Name'}
+					</a>
 				</div>
 
 				{/* update_at */}

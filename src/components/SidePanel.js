@@ -19,7 +19,7 @@ export default function SidePanel({show, close}) {
 	return(
 		<Offcanvas show={show} onHide={close} placement='end'>
       <Offcanvas.Header closeButton>
-        <Offcanvas.Title>Account</Offcanvas.Title>
+        <Offcanvas.Title>Account - {localStorage.getItem('fullname')}</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
         <a href={`/profile/${localStorage.getItem('username')}`} className='d-flex w-100 py-2 underline-hover pointer text-decoration-none text-dark'>
