@@ -19,7 +19,7 @@ export default function AllTopics({package_id}) {
   const TopicCard = ({id, title, created, user_name, user_image_url}) => {
     return (
       <Link
-        to={`${window.location.href}/topics/${id}`}
+        to={`${window.location.href}${window.location.href.split("/").splice(-1)[0] === "discussion" ? `/topics/${id}` : `/discussion/topics/${id}`}`}
         className="text-decoration-none"
       >
         <Card className="w-100 mb-3 shadow-sm">

@@ -18,18 +18,16 @@ export default function CreateInitialDatasetsModal({ show, close }) {
   const [link, setLink] = useState("");
   const [title, setTitle] = useState("");
   const [notes, setNotes] = useState("");
-  const [privacy, setPrivacy] = useState("");
   const [success, setSuccess] = useState(false);
 
   const createDatasets = async () => {
-    console.log(link, title, notes, privacy);
+    console.log(link, title, notes );
     const response = await axios.post(
       `${process.env.REACT_APP_CKAN_API}/packages/`,
       {
         title: title,
         name: link.toLowerCase().replaceAll(",", "").replaceAll(" ", "-"),
         notes: notes,
-        private: privacy,
       },
       {
         headers: {
@@ -44,7 +42,9 @@ export default function CreateInitialDatasetsModal({ show, close }) {
       // then close modal and reload page
       setTimeout(() => {
         close();
-        window.location.replace("");
+        // window.location.replace("");
+        // redirect to datasets pages
+        window.location.href = `/datasets/${response.data.result.name}`;
       }, 2000);
     }
   };
@@ -85,30 +85,6 @@ export default function CreateInitialDatasetsModal({ show, close }) {
                           .replaceAll(" ", "-")}
                   </div>
                 </Form.Text>
-              </Form.Group>
-
-              <Form.Group className="mb-2 fw-bold">
-                <Form.Label>
-                  <FontAwesomeIcon
-                    icon={faEye}
-                    size="xs"
-                    style={{ color: "#000000" }}
-                    className="me-1"
-                  />
-                  Privacy
-                </Form.Label>
-                <Form.Control
-                  as="select"
-                  aria-label="Select privacy"
-                  value={privacy}
-                  onChange={(e) => {
-                    setPrivacy(e.target.value);
-                    console.log(privacy);
-                  }}
-                >
-                  <option value="true">Private</option>
-                  <option value="false">Public</option>
-                </Form.Control>
               </Form.Group>
 
               <Form.Group controlId="formFileMultiple" className="mb-2 fw-bold">

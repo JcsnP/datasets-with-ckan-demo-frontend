@@ -3,6 +3,7 @@ import { Card, Modal, Button, Badge } from 'react-bootstrap';
 import { useParams } from "react-router-dom";
 import moment from 'moment';
 import { Link } from "react-router-dom";
+import CreateComment from './CreateComment';
 
 export default function ViewTopicModal() {
   const { topic_id } = useParams();
@@ -72,7 +73,10 @@ export default function ViewTopicModal() {
     <>
       {topicLoaded && (
         <Card className="border-0">
-          <Link to={`${window.location.pathname.split('/topics')[0]}`}> Back</Link>
+          <Link to={`${window.location.pathname.split("/topics")[0]}`}>
+            {" "}
+            Back
+          </Link>
           <Card.Body>
             <div className="d-flex align-items-center gap-3">
               <img
@@ -94,6 +98,9 @@ export default function ViewTopicModal() {
       )}
 
       <hr />
+
+      {/* add comment */}
+      <CreateComment topic_id={topic_id} />
 
       {commentLoaded &&
         comments.map((item, key) => (
