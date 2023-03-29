@@ -46,10 +46,10 @@ export default function CreateTopicModal({package_id, show, close}) {
             <Form.Control type="text" placeholder="Topic Title" value={title} onChange={(e) => {setTitle(e.target.value)}} />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Topic Title</Form.Label>
+            <Form.Label>Message</Form.Label>
             <Form.Control
               as="textarea"
-              placeholder="Topic Title"
+              placeholder="Leave your message here."
               style={{ height: "100px" }}
               value={body}
               onChange={(e) => setBody(e.target.value)}

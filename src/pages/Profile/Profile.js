@@ -68,13 +68,7 @@ export default function Profile() {
                 {/* bio */}
                 <div>
                   <h5 className="text-uppercase text-muted">bio</h5>
-                  <p>{userDetails.bio ? userDetails : "no bio"}</p>
-                </div>
-
-                {/* nums datasets */}
-                <div>
-                  <h5 className="text-uppercase text-muted">bio</h5>
-                  <p>{userDetails.bio ? userDetails : "no bio"}</p>
+                  <p>{userDetails.bio ? userDetails.bio : "no bio"}</p>
                 </div>
 
                 {/* buttons */}
@@ -109,6 +103,7 @@ export default function Profile() {
                 {/* show the datasets if user has datasets */}
                 {userDetails.datasets.map((item, key) => (
                   <UserDatasetsCard
+                    creator_user_id={item.creator_user_id}
                     name={item.name}
                     notes={item.notes}
                     metadata_modified={item.metadata_modified}

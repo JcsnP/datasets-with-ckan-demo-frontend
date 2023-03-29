@@ -33,14 +33,18 @@ export default function Bookmarked() {
 		fetchBookmarked();
 	}, []);
 	if(bookmarkedLoaded) {
-		return(
-			<>
-				{
-					bookmarked.map((item, key) => (
-						<UserDatasetsCard name={item.name} notes={item.notes} metadata_modified={item.metadata_modified} key={key} />
-					))
-				}
-			</>
-		);
+		return (
+      <>
+        {bookmarked.map((item, key) => (
+          <UserDatasetsCard
+            creator_user_id={item.creator_user_id}
+            name={item.name}
+            notes={item.notes}
+            metadata_modified={item.metadata_modified}
+            key={key}
+          />
+        ))}
+      </>
+    );
 	}
 }

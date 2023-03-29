@@ -29,11 +29,12 @@ export default function CreateComment({topic_id}) {
       <Card.Body>
         <div className='mb-3'>
           <Form.Control
-            type="text"
+            as="textarea"
             placeholder="Comment here. Be patient, be friendly, and focus on ideas."
             className="mb-2"
             value={body}
             onChange={(e) => setBody(e.target.value)}
+            style={{height: '100px'}}
           />
           <Form.Text muted>
             This comment will be made public once posted.

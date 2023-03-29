@@ -4,8 +4,9 @@ import moment from 'moment';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisVertical } from "@fortawesome/free-solid-svg-icons";
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
-export default function UserDatasetsCard ({name, notes, metadata_modified}) {
+export default function UserDatasetsCard ({creator_user_id, name, notes, metadata_modified}) {
   const [show, setShow] = useState(false);
   const DeleteModal = ({show, close}) => {
     return (
@@ -53,12 +54,22 @@ export default function UserDatasetsCard ({name, notes, metadata_modified}) {
         <div className="my-2" style={{ cursor: "pointer" }}>
           Bookmark
         </div>
-        <div className="my-2" style={{ cursor: "pointer" }}>
-          Edit
-        </div>
-        <div className="my-2 text-danger" style={{ cursor: "pointer" }} onClick={() => {setShow(true)}}>
-          Delete
-        </div>
+        {creator_user_id === Cookies.get("user_id") && (
+          <>
+            <div className="my-2" style={{ cursor: "pointer" }}>
+              Edit
+            </div>
+            <div
+              className="my-2 text-danger"
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                setShow(true);
+              }}
+            >
+              Delete
+            </div>
+          </>
+        )}
       </Popover.Body>
     </Popover>
   );

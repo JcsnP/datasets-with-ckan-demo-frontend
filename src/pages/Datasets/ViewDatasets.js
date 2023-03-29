@@ -24,6 +24,8 @@ import ResourceCard from "../../components/Datasets/ResourceCard.js";
 import CreateTopicModal from "../../components/Discussion/CreateTopicModal.js";
 import AllTopics from "../../components/Discussion/AllTopics.js";
 import ViewTopic from "../../components/Discussion/ViewTopic.js";
+import Cookies from "js-cookie";
+import UpdateDatasetsModal from "../../components/Datasets/UpdateDatasetsModal.js";
 
 export default function ViewDatasets({ title = "Datasets" }) {
   const { datasets_name, topic_id } = useParams();
@@ -33,6 +35,8 @@ export default function ViewDatasets({ title = "Datasets" }) {
   const [datasetsLoaded, setDatasetsLoaded] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [topicModalShow, setTopicModalShow] = useState(false);
+
+  const [updateDatasetsModalShow, setUpdateDatasetsModalShow] = useState(false);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_CKAN_API}/packages/${datasets_name}`)
@@ -51,6 +55,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
         {
           headers: {
             Authorization: localStorage.getItem("token"),
+            "Content-Type": "application/json",
           },
         }
       )
@@ -98,12 +103,19 @@ export default function ViewDatasets({ title = "Datasets" }) {
   if (datasetsLoaded) {
     return (
       <Container className="my-5">
+        <UpdateDatasetsModal show={updateDatasetsModalShow} close={() => {setUpdateDatasetsModalShow(false)}} datasets={datasets} />
         <div className="d-flex justify-content-between">
           <div>
             <h1>{datasets.title}</h1>
             <p className="text-muted">{datasets.notes}</p>
           </div>
-          <div>
+          <div className="d-flex gap-2 h-25">
+            {/* edit button */}
+            {datasets.creator_user_id === localStorage.getItem("user_id") && (
+              <Button variant="primary" onClick={() => {setUpdateDatasetsModalShow(true)}}>Edit Datasets</Button>
+            )}
+
+            {/* bookmark button */}
             <ToggleButton
               className="d-flex gap-2 align-items-center justify-content-between"
               id="toggle-check"
@@ -165,6 +177,11 @@ export default function ViewDatasets({ title = "Datasets" }) {
                       format={item.format}
                     />
                   ))}
+
+                  {/* if datasets has non resource */}
+                  {datasets.resources.length === 0 && (
+                    <Alert variant="warning">No Resouce</Alert>
+                  )}
                 </Col>
                 <Col sm={4}>
                   <h5 className="text-end fw-bold">Data</h5>

@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { Container, Form, Button, Card, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import Cookies from "js-cookie";
+import { decodeToken } from "react-jwt";
 
 // import styles
 import '../../styles/login.css'
@@ -29,6 +31,10 @@ export default function Login() {
 			alert('succes')
 			localStorage.setItem('token', response.data.token)
 			localStorage.setItem('username', username)
+			localStorage.setItem('user_id', decodeToken(response.data.token).id)
+			// decode token
+			// Cookies.set('user_id', decodeToken(response.data.token).id)
+			// Cookies.get('username);
 			window.location.replace('/');
 		} else {
 			alert('Login Failed');

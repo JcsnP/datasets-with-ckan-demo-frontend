@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Offcanvas } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faBookmark, faRightFromBracket, faCircleUp } from '@fortawesome/free-solid-svg-icons';
+import Cookies from "js-cookie";
 
 // import style
 import '../App.css';
@@ -11,6 +12,7 @@ import CreateInitialDatasetsModal from './Datasets/CreateInitialDatasetsModal.js
 export default function SidePanel({show, close}) {
 	const logout = () => {
 		localStorage.clear();
+		Cookies.remove();
 		window.location.replace('/');
 	}
 
