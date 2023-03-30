@@ -22,8 +22,8 @@ export default function DatasetsCard({id, name, title, image = 'https://gravatar
 
 	return(
 		<Card className='shadow-sm mb-3 pointer' onClick={() => {window.location.href=`/datasets/${name}`}}>
-			<div className='overflow-hidden' style={{height: '120px'}}>
-				<Card.Img variant="top" src={thumbnail ? `data:image/png;base64,${thumbnail}` : image} />
+			<div className='overflow-hidden'>
+				<Card.Img variant="top" src={thumbnail ? `data:image/png;base64,${thumbnail}` : image} height="120" style={{ objectFit: 'cover', overflow: 'hidden' }} />
 			</div>
 			<Card.Body className='d-flex flex-column justify-content-between' style={{height: '9rem'}}>
 				<Card.Title>{title}</Card.Title>
