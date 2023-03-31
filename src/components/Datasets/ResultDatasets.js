@@ -15,8 +15,10 @@ export default function ResultDatasets() {
 	useEffect(() => {
 		try {
 			// ${searchParams.get('q') ? searchParams.get('q') : ''}
-			const q = searchParams.get('q') || ' ';
-			fetch(`${process.env.REACT_APP_CKAN_API}/packages/search?q=${q}`)
+			const q = searchParams.get('q') || '';
+			const tags = searchParams.get('tags');
+
+			fetch(`${process.env.REACT_APP_CKAN_API}/packages/search?q=${q}${tags ? `&tags=${tags}` : ''}`)
 				.then((response) => response.json())
 				.then((data) => {
 					if(data.ok) {
@@ -37,7 +39,7 @@ export default function ResultDatasets() {
 				{
 					datasets.map((item, key) => (
 						<Col sm={6} md={3}>
-							<DatasetsCard name={item.name} title={item.title} notes={item.notes} image={item.image} author={item.author} metadata_modified={item.metadata_modified} key={key}/>
+							<DatasetsCard id={item.id} name={item.name} title={item.title} notes={item.notes} image={item.image} author={item.author} metadata_modified={item.metadata_modified} key={key}/>
 						</Col>
 					))
 				}

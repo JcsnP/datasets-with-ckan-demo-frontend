@@ -34,8 +34,9 @@ export default function TheNavbar() {
 								}
 								{
 									localStorage.getItem('token') && (
-										<Button variant='dark' onClick={() => {setShow(true)}} className='d-flex align-items-center justify-content-between rounded-circle'>
+										<Button variant='dark' onClick={() => {setShow(true)}} className='d-flex align-items-center justify-content-between gap-2 rounded-xl'>
 											<FontAwesomeIcon icon={faUser} size="sm" style={{color: "#ffffff",}} />
+											{localStorage.getItem('fullname')}
 										</Button>
 									)
 								}

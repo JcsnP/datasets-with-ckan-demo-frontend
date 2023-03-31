@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Modal, Button, Form} from 'react-bootstrap';
+import {Modal, Button, Form, FloatingLabel} from 'react-bootstrap';
 import axios from 'axios';
 
 export default function CreateTopicModal({package_id, show, close}) {
@@ -41,20 +41,15 @@ export default function CreateTopicModal({package_id, show, close}) {
           <Modal.Title>New Topic</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Group className="mb-3">
-            <Form.Label>Topic Title</Form.Label>
-            <Form.Control type="text" placeholder="Topic Title" value={title} onChange={(e) => {setTitle(e.target.value)}} />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Message</Form.Label>
-            <Form.Control
-              as="textarea"
-              placeholder="Leave your message here."
-              style={{ height: "100px" }}
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-            />
-          </Form.Group>
+
+          <FloatingLabel controlId="floatingTextarea" label="Topic Title" className="mb-3">
+            <Form.Control type="text" placeholder="Topic Title" value={title} onChange={(e) => {setTitle(e.target.value)}}/>
+          </FloatingLabel>
+
+          <FloatingLabel controlId="floatingTextarea" label="Message" className="mb-3">
+            <Form.Control as="textarea" placeholder="Leave your message here." value={body} onChange={(e) => {setBody(e.target.value)}} style={{ height: "100px" }} />
+          </FloatingLabel>
+
         </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" onClick={close}>

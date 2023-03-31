@@ -18,6 +18,7 @@ import moment from "moment";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import { Oval } from "react-loader-spinner";
 
 // import components
 import ResourceCard from "../../components/Datasets/ResourceCard.js";
@@ -35,6 +36,8 @@ export default function ViewDatasets({ title = "Datasets" }) {
   const [datasetsLoaded, setDatasetsLoaded] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [topicModalShow, setTopicModalShow] = useState(false);
+  const [thumbnail, setThumbnail] = useState('');
+  const [thumbnailLoadded, setThumbnailLoaded] = useState(false);
 
   const [updateDatasetsModalShow, setUpdateDatasetsModalShow] = useState(false);
 
@@ -68,6 +71,19 @@ export default function ViewDatasets({ title = "Datasets" }) {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  useEffect(() => {
+    // fetch thumbnail
+    fetch(`${process.env.REACT_APP_CKAN_API}/packages/${datasets.id}/thumbnail`)
+      .then((response) => response.json())
+      .then((data) => {
+        if(data.ok) {
+          setThumbnail(data.result);
+          setThumbnailLoaded(true);
+        }
+      })
+      .catch((error) => console.log(error))
+    }, [datasetsLoaded, thumbnailLoadded]);
 
   const bookmarked = async () => {
     // check current status
@@ -104,11 +120,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
     return (
       <Container className="my-5">
         <UpdateDatasetsModal show={updateDatasetsModalShow} close={() => {setUpdateDatasetsModalShow(false)}} datasets={datasets} />
-        <div className="d-flex justify-content-between">
-          <div>
-            <h1>{datasets.title}</h1>
-            <p className="text-muted">{datasets.notes}</p>
-          </div>
+        <div className="d-flex justify-content-end">
           <div className="d-flex gap-2 h-25">
             {/* edit button */}
             {datasets.creator_user_id === localStorage.getItem("user_id") && (
@@ -135,6 +147,34 @@ export default function ViewDatasets({ title = "Datasets" }) {
               )}
               {isBookmarked ? "Bookmarked" : "Bookmark"}
             </ToggleButton>
+          </div>
+        </div>
+        <div>
+          <div className="d-flex align-items-center justify-content-between gap-5 my-4">
+            <div>
+              <h1>{datasets.title}</h1>
+              <p className="text-muted">{datasets.notes}</p>
+            </div>
+            {
+              thumbnailLoadded ? (
+                <div>
+                  <img src={thumbnail ? `data:image/png;base64,${thumbnail}` : null} alt="thumbnail" height="146" className="rounded" />
+                </div>
+              ) : (
+                <Oval
+                  height={80}
+                  width={80}
+                  color="#002B5B"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                  ariaLabel="oval-loading"
+                  secondaryColor="#b4b6b8"
+                  strokeWidth={2}
+                  strokeWidthSecondary={2}
+                />
+              )
+            }
           </div>
         </div>
         <hr />
@@ -172,9 +212,9 @@ export default function ViewDatasets({ title = "Datasets" }) {
                     <ResourceCard
                       name={item.name}
                       url={item.url}
-                      size={item.size}
                       metadata_modified={item.metadata_modified}
                       format={item.format}
+                      resource_size={item.size}
                     />
                   ))}
 
