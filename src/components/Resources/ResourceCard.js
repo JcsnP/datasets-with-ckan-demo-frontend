@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
 export default function ResourceCard({name, url, metadata_modified, format, resource_size}) {
-	console.log(resource_size / 1024)
 	return(
 		<Card className='mb-3 shadow-sm'>
 			<Card.Body className='d-flex w-100 flex-row align-items-center justify-content-between'>

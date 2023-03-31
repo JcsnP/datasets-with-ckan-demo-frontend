@@ -17,16 +17,17 @@ import { useParams, useLocation } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark, faFile, faPen } from "@fortawesome/free-solid-svg-icons";
 import { Oval } from "react-loader-spinner";
 
 // import components
-import ResourceCard from "../../components/Datasets/ResourceCard.js";
+import ResourceCard from "../../components/Resources/ResourceCard.js";
 import CreateTopicModal from "../../components/Discussion/CreateTopicModal.js";
 import AllTopics from "../../components/Discussion/AllTopics.js";
 import ViewTopic from "../../components/Discussion/ViewTopic.js";
 import Cookies from "js-cookie";
 import UpdateDatasetsModal from "../../components/Datasets/UpdateDatasetsModal.js";
+import UpdateResourcesModal from "../../components/Resources/UpdateResourcesModal.js";
 
 export default function ViewDatasets({ title = "Datasets" }) {
   const { datasets_name, topic_id } = useParams();
@@ -40,6 +41,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
   const [thumbnailLoadded, setThumbnailLoaded] = useState(false);
 
   const [updateDatasetsModalShow, setUpdateDatasetsModalShow] = useState(false);
+  const [updateResourcesModalShow, setUpdateResourcesModalShow] = useState(false);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_CKAN_API}/packages/${datasets_name}`)
@@ -120,11 +122,15 @@ export default function ViewDatasets({ title = "Datasets" }) {
     return (
       <Container className="my-5">
         <UpdateDatasetsModal show={updateDatasetsModalShow} close={() => {setUpdateDatasetsModalShow(false)}} datasets={datasets} />
+        <UpdateResourcesModal show={updateResourcesModalShow} close={() => {setUpdateResourcesModalShow(false)}} datasets_resources={datasets.resources} />
         <div className="d-flex justify-content-end">
           <div className="d-flex gap-2 h-25">
             {/* edit button */}
             {datasets.creator_user_id === localStorage.getItem("user_id") && (
-              <Button variant="primary" onClick={() => {setUpdateDatasetsModalShow(true)}}>Edit Datasets</Button>
+              <Button variant="primary" onClick={() => {setUpdateDatasetsModalShow(true)}}>
+                <FontAwesomeIcon icon={faPen} className='me-2' />
+                Edit Datasets
+              </Button>
             )}
 
             {/* bookmark button */}
@@ -204,7 +210,18 @@ export default function ViewDatasets({ title = "Datasets" }) {
                 </Card>
               )}
 
-              <h4 className="mt-4">Resources</h4>
+              {
+                datasets.creator_user_id === localStorage.getItem("user_id") && (
+                  <div className="d-flex align-items-center justify-content-between my-3">
+                    <h4 className="mt-4">Resources</h4>
+                    <Button variant="outline-primary" onClick={() => {setUpdateResourcesModalShow(true)}}>
+                      <FontAwesomeIcon icon={faFile} className='me-2' />
+                      Edit Resources
+                    </Button>
+                  </div>
+                )
+              }
+              
               <Row className="my-1">
                 <Col sm={8}>
                   {/* resource view */}
