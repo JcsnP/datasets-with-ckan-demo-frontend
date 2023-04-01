@@ -88,7 +88,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
       .catch((error) => console.log(error))
     }, [datasetsLoaded, thumbnailLoadded]);
 
-  const bookmarked = async () => {
+  const bookmarked = async() => {
     // check current status
     if (isBookmarked) {
       // delete following status
@@ -110,6 +110,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
         {
           headers: {
             Authorization: localStorage.getItem("token"),
+            "Content-Type": "application/json",
           },
         }
       );
@@ -212,7 +213,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
                 )
               }
               
-              <Row className="my-1">
+              <Row className="my-4">
                 <Col sm={8}>
                   {/* resource view */}
                   {datasets.resources.map((item, key) => (

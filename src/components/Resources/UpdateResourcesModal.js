@@ -51,10 +51,12 @@ export default function UpdateResourcesModal({show, close, datasets_resources, d
 	const [resources, setResources] = useState(datasets_resources);
 	const [confirmDeletePopoverShow, setConfirmDeletePopoverShow] = useState(false);
 
-	const [url, setURL] = useState('');
+	// const [url, setURL] = useState('');
 	const [description, setDescription] = useState('');
 	const [name, setName] = useState('');
 	const [file, setFile] = useState('');
+
+	const old_resouces = resources;
 
 	// create new resouces
 	const createResouce = async() => {
@@ -68,7 +70,7 @@ export default function UpdateResourcesModal({show, close, datasets_resources, d
 			`${process.env.REACT_APP_CKAN_API}/packages/resources`,
 			{
 				package_id: datasets_id,
-				url: url,
+				// url: url,
 				description: description,
 				name: name,
 				upload: file
@@ -85,8 +87,8 @@ export default function UpdateResourcesModal({show, close, datasets_resources, d
 		if(response.data.ok) {
 			setName('');
 			setDescription('');
-			setURL('');
-			setFile('');
+			// setURL('');
+			setFile(null);
 			setResources((prevState) => [...prevState, response.data.result])
 		}
 	}
@@ -126,12 +128,20 @@ export default function UpdateResourcesModal({show, close, datasets_resources, d
       	<Row>
       		<Col>
 						{
-		        	resources.map((item, key) => (
-		        		<UpdateResourceCard id={item.id} name={item.name} url={item.url} description={item.description} metadata_modified={item.metadata_modified} format={item.format} resource_size={item.size} deleteResource={() => {deleteResource(item.id)}} />
-		        	))
-		        }
+							resources.length > 0 ? (
+			        	resources.map((item, key) => (
+			        		<UpdateResourceCard id={item.id} name={item.name} url={item.url} description={item.description} metadata_modified={item.metadata_modified} format={item.format} resource_size={item.size} deleteResource={() => {deleteResource(item.id)}} />
+			        	))
+							) : (
+								<h1 className="h-100 d-flex justify-content-center align-items-center text-muted text-center">Datasets don't have any resources yet.</h1>
+							)							
+						}
       		</Col>
+
+
+
       		<Col>
+      			{/*
       			<Row>
 		        	<Col>
 		        		<FloatingLabel controlId="floatingTextarea" label="Resouce name" className="mb-3">
@@ -144,6 +154,13 @@ export default function UpdateResourcesModal({show, close, datasets_resources, d
 					      </FloatingLabel>
 		        	</Col>
 		        </Row>
+		        */}
+
+		        <Col>
+	        		<FloatingLabel controlId="floatingTextarea" label="Resouce name" className="mb-3">
+				        <Form.Control type="text" placeholder="Resouce name" value={name} onChange={(e) => setName(e.target.value)} />
+				      </FloatingLabel>
+	        	</Col>
 
 		        <FloatingLabel controlId="floatingTextarea" label="Description" className="mb-3">
 			        <Form.Control as="textarea" placeholder="Description" style={{height: '100px'}} value={description} onChange={(e) => setDescription(e.target.value)} />

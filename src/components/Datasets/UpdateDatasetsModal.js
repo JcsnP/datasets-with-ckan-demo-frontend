@@ -116,10 +116,7 @@ export default function UpdateDatasetsModal({show, close, datasets}) {
           		<div className='position-relative h-100'>
           			{
           				thumbnail ? (
-          					<div className="position-relative overflow-hidden h-100">
-          						<img src={thumbnail ? `data:image/png;base64,${thumbnail}` : null} alt="thumbnail" className='w-100 rounded' />
-          						<div className="border-2 position-absolute top-0 end-0 start-0 bottom-0" style={{height: '200px', backgroundColor: '#626d7861', borderStyle: 'dotted'}}></div>
-          					</div>
+          					<img src={thumbnail ? `data:image/png;base64,${thumbnail}` : null} alt="thumbnail" className='w-100 h-100 rounded' />
           				) : (
           					<h1 className="h-100 d-flex justify-content-center align-items-center text-muted">No Thumbnail</h1>
           				)
