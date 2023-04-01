@@ -20,6 +20,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark, faFile, faPen } from "@fortawesome/free-solid-svg-icons";
 import { Oval } from "react-loader-spinner";
 
+
 // import components
 import ResourceCard from "../../components/Resources/ResourceCard.js";
 import CreateTopicModal from "../../components/Discussion/CreateTopicModal.js";
@@ -122,7 +123,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
     return (
       <Container className="my-5">
         <UpdateDatasetsModal show={updateDatasetsModalShow} close={() => {setUpdateDatasetsModalShow(false)}} datasets={datasets} />
-        <UpdateResourcesModal show={updateResourcesModalShow} close={() => {setUpdateResourcesModalShow(false)}} datasets_resources={datasets.resources} />
+        <UpdateResourcesModal show={updateResourcesModalShow} close={() => {setUpdateResourcesModalShow(false)}} datasets_resources={datasets.resources} datasets_id={datasets.id} />
         <div className="d-flex justify-content-end">
           <div className="d-flex gap-2 h-25">
             {/* edit button */}
@@ -167,18 +168,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
                   <img src={thumbnail ? `data:image/png;base64,${thumbnail}` : null} alt="thumbnail" height="146" className="rounded" />
                 </div>
               ) : (
-                <Oval
-                  height={80}
-                  width={80}
-                  color="#002B5B"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                  visible={true}
-                  ariaLabel="oval-loading"
-                  secondaryColor="#b4b6b8"
-                  strokeWidth={2}
-                  strokeWidthSecondary={2}
-                />
+                <img src={process.env.PUBLIC_URL + '/images/default_thumbnail.png'} alt="default_thumbnail" height="146" className="rounded" />
               )
             }
           </div>
@@ -229,6 +219,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
                     <ResourceCard
                       name={item.name}
                       url={item.url}
+                      description={item.description}
                       metadata_modified={item.metadata_modified}
                       format={item.format}
                       resource_size={item.size}

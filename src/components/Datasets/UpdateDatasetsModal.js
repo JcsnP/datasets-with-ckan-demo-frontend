@@ -42,17 +42,24 @@ export default function UpdateDatasetsModal({show, close, datasets}) {
 	}
 
 	const updateDatasets = async() => {
+		const payload = {
+			title: title,
+			name: title.toLowerCase().replaceAll(",", "").replaceAll(" ", "-"),
+			notes: notes,
+			url: source,
+			author: author,
+			author_email: authorEmail,
+		};
+
+
+		// if tags not null
+		if(typeof tags !== 'undefined' && tags.length > 0) {
+			payload.tags = create_tags(tags);
+		}
+
 		const response = await axios.put(
 			`${process.env.REACT_APP_CKAN_API}/packages/${datasets.name}`,
-			{
-				title: title,
-				name: title.toLowerCase().replaceAll(",", "").replaceAll(" ", "-"),
-				notes: notes,
-				tags: create_tags(tags),
-				url: source,
-				author: author,
-				author_email: authorEmail,
-			},
+			payload,
 			{
 				headers: {
 					Authorization: localStorage.getItem('token')
