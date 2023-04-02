@@ -17,16 +17,18 @@ import { useParams, useLocation } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark, faFile, faPen } from "@fortawesome/free-solid-svg-icons";
 import { Oval } from "react-loader-spinner";
 
+
 // import components
-import ResourceCard from "../../components/Datasets/ResourceCard.js";
+import ResourceCard from "../../components/Resources/ResourceCard.js";
 import CreateTopicModal from "../../components/Discussion/CreateTopicModal.js";
 import AllTopics from "../../components/Discussion/AllTopics.js";
 import ViewTopic from "../../components/Discussion/ViewTopic.js";
 import Cookies from "js-cookie";
 import UpdateDatasetsModal from "../../components/Datasets/UpdateDatasetsModal.js";
+import UpdateResourcesModal from "../../components/Resources/UpdateResourcesModal.js";
 
 export default function ViewDatasets({ title = "Datasets" }) {
   const { datasets_name, topic_id } = useParams();
@@ -40,6 +42,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
   const [thumbnailLoadded, setThumbnailLoaded] = useState(false);
 
   const [updateDatasetsModalShow, setUpdateDatasetsModalShow] = useState(false);
+  const [updateResourcesModalShow, setUpdateResourcesModalShow] = useState(false);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_CKAN_API}/packages/${datasets_name}`)
@@ -85,7 +88,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
       .catch((error) => console.log(error))
     }, [datasetsLoaded, thumbnailLoadded]);
 
-  const bookmarked = async () => {
+  const bookmarked = async() => {
     // check current status
     if (isBookmarked) {
       // delete following status
@@ -107,6 +110,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
         {
           headers: {
             Authorization: localStorage.getItem("token"),
+            "Content-Type": "application/json",
           },
         }
       );
@@ -120,11 +124,15 @@ export default function ViewDatasets({ title = "Datasets" }) {
     return (
       <Container className="my-5">
         <UpdateDatasetsModal show={updateDatasetsModalShow} close={() => {setUpdateDatasetsModalShow(false)}} datasets={datasets} />
+        <UpdateResourcesModal show={updateResourcesModalShow} close={() => {setUpdateResourcesModalShow(false)}} datasets_resources={datasets.resources} datasets_id={datasets.id} />
         <div className="d-flex justify-content-end">
           <div className="d-flex gap-2 h-25">
             {/* edit button */}
             {datasets.creator_user_id === localStorage.getItem("user_id") && (
-              <Button variant="primary" onClick={() => {setUpdateDatasetsModalShow(true)}}>Edit Datasets</Button>
+              <Button variant="primary" onClick={() => {setUpdateDatasetsModalShow(true)}}>
+                <FontAwesomeIcon icon={faPen} className='me-2' />
+                Edit Datasets
+              </Button>
             )}
 
             {/* bookmark button */}
@@ -161,18 +169,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
                   <img src={thumbnail ? `data:image/png;base64,${thumbnail}` : null} alt="thumbnail" height="146" className="rounded" />
                 </div>
               ) : (
-                <Oval
-                  height={80}
-                  width={80}
-                  color="#002B5B"
-                  wrapperStyle={{}}
-                  wrapperClass=""
-                  visible={true}
-                  ariaLabel="oval-loading"
-                  secondaryColor="#b4b6b8"
-                  strokeWidth={2}
-                  strokeWidthSecondary={2}
-                />
+                <img src={process.env.PUBLIC_URL + '/images/default_thumbnail.png'} alt="default_thumbnail" height="146" className="rounded" />
               )
             }
           </div>
@@ -204,14 +201,26 @@ export default function ViewDatasets({ title = "Datasets" }) {
                 </Card>
               )}
 
-              <h4 className="mt-4">Resources</h4>
-              <Row className="my-1">
+              {
+                datasets.creator_user_id === localStorage.getItem("user_id") && (
+                  <div className="d-flex align-items-center justify-content-between my-3">
+                    <h4 className="mt-4">Resources</h4>
+                    <Button variant="outline-primary" onClick={() => {setUpdateResourcesModalShow(true)}}>
+                      <FontAwesomeIcon icon={faFile} className='me-2' />
+                      Edit Resources
+                    </Button>
+                  </div>
+                )
+              }
+              
+              <Row className="my-4">
                 <Col sm={8}>
                   {/* resource view */}
                   {datasets.resources.map((item, key) => (
                     <ResourceCard
                       name={item.name}
                       url={item.url}
+                      description={item.description}
                       metadata_modified={item.metadata_modified}
                       format={item.format}
                       resource_size={item.size}

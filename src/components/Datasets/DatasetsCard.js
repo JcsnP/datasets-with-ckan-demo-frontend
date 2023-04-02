@@ -27,8 +27,8 @@ export default function DatasetsCard({id, name, title, image = 'https://gravatar
 			</div>
 			<Card.Body className='d-flex flex-column justify-content-between' style={{height: '9rem'}}>
 				<Card.Title>{title}</Card.Title>
-				<Card.Text className='h-100 text-muted'>
-					{notes?.length ? notes?.length >= 85 ? notes.slice(0, 85) + '...' : notes : 'no description'}
+				<Card.Text className='h-100 text-muted overflow-hidden'>
+					{notes?.length ? notes : 'no description'}
 				</Card.Text>
 			</Card.Body>
 			<div className='d-flex flex-row justify-content-between align-items-center border-top px-3 py-2 rounded-bottom' style={{backgroundColor: '#faf7f7'}}>
