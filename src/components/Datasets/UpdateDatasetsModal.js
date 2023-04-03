@@ -11,7 +11,9 @@ export default function UpdateDatasetsModal({show, close, datasets}) {
 	const [author, setAuthor] = useState(datasets.author);
 	const [authorEmail, setAuthorEmail] = useState(datasets.author_email)
 	const [allTags, setAllTags] = useState([]);
-	const [thumbnail, setThumbnail] = useState('');
+	const [thumbnail, setThumbnail] = useState(false);
+
+	const [preview_thumbnail, setPreview_Thumbnail] = useState('');
 
 	useEffect(() => {
 		// fetch tags
@@ -116,14 +118,16 @@ export default function UpdateDatasetsModal({show, close, datasets}) {
           	<Col>
           		<div className='position-relative h-100'>
           			{
-          				thumbnail ? (
+          				thumbnail && !preview_thumbnail ? (
           					<img src={thumbnail ? `data:image/png;base64,${thumbnail}` : null} alt="thumbnail" className='w-100 h-100 rounded' />
+          				) : preview_thumbnail ? (
+          					<img src={preview_thumbnail} alt="thumbnail_preview" className='w-100 h-100 rounded' />
           				) : (
-          					<h1 className="h-100 d-flex justify-content-center align-items-center text-muted">No Thumbnail</h1>
+										<h1 className="h-100 d-flex justify-content-center align-items-center text-muted">No Thumbnail</h1>
           				)
           			}
           			<Form.Group controlId="formFile" className="position-absolute bottom-0 p-2 w-100 shadow-sm">
-					        <Form.Control type="file" accept="image/png, image/jpeg" onChange={(e) => {setThumbnail(e.target.files[0])}} />
+					        <Form.Control type="file" accept="image/png, image/jpeg" onChange={(e) => {setThumbnail(e.target.files[0]); setPreview_Thumbnail(URL.createObjectURL(e.target.files[0]))}} />
 					      </Form.Group>
           		</div>
           	</Col>
