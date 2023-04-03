@@ -6,7 +6,7 @@ import axios from 'axios';
 import '../../styles/login.css'
 
 // import components
-import SuccessModal from '../../components/Modal/SuccessModel.js';
+import AlertModal from '../../components/Modal/AlertModal.js';
 
 export default function Register(argument) {
 	document.title = 'Register';
@@ -19,6 +19,9 @@ export default function Register(argument) {
 	const [about, setAbout] = useState('');
 	const [imageURL, setImageUrl] = useState('');
 
+	const [registerStatus, setRegisterStatus] = useState('');
+	const [registerStatusModal, setRegisterStatusModal] = useState(false);
+
 	const register = async() => {
 		// check if password match
 		if(password !== confirmPassword)
@@ -26,7 +29,7 @@ export default function Register(argument) {
 
 		try {
 			const response = await axios.post(
-				'http://127.0.0.1:5001/ckanapi/v1/users',
+				`${process.env.REACT_APP_CKAN_API}/users/`,
 				{
 					name: name,
 					fullname: fullname,
@@ -37,9 +40,15 @@ export default function Register(argument) {
 				}
 			);
 
-			if(response.status === 200) {
+			console.log(response.data)
+
+			if(response.data.ok) {
 				// success modal
-				<SuccessModal title='Success' message='Account was created !' redirect='/' close={false} />
+				setRegisterStatus('Register Success');
+				setRegisterStatusModal(true);
+			} else {
+				setRegisterStatus('Register Failed ' + response.data.message);
+				setRegisterStatusModal(true);
 			}
 		} catch(error) {
 			console.log(error);
@@ -55,6 +64,7 @@ export default function Register(argument) {
 
 	return(
 		<Container className='vh-100 d-flex justify-content-center align-items-center'>
+			<AlertModal show={registerStatusModal} close={() => setRegisterStatusModal(false)} message={registerStatus} />
 			<div className='d-flex justify-content-center align-items-center'>
 				{/* login image eiei */}
 				<img className='w-50 h-100' src='https://cdn3d.iconscout.com/3d/premium/thumb/article-writing-6373990-5272606.png' alt='login' />
@@ -82,6 +92,11 @@ export default function Register(argument) {
 
 				      <FloatingLabel controlId="floatingTextarea" label="Confirm Password" className="mb-3">
 				        <Form.Control type="password" placeholder='********' value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}} />
+				      </FloatingLabel>
+
+				      <FloatingLabel controlId="floatingTextarea" label="Image URL" className="mb-3">
+				        <Form.Control type="text" placeholder='image link' value={imageURL} onChange={(e) => {setImageUrl(e.target.value)}} />
+				        <Form.Text>Optional</Form.Text>
 				      </FloatingLabel>
 
 				      <Button variant="primary" className='w-100' onClick={() => {register()}}>Register</Button>

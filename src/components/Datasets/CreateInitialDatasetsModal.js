@@ -86,11 +86,6 @@ export default function CreateInitialDatasetsModal({ show, close }) {
               <Form.Control as="textarea" placeholder="Leave a Noes here" style={{ height: '100px' }} value={notes} onChange={(e) => {setNotes(e.target.value)}} />
             </FloatingLabel>
 
-            <Form.Group controlId="formFileMultiple" className="mb-3 fw-bold">
-              <Form.Label>Upload Datasets Files</Form.Label>
-              <Form.Control type="file" multiple />
-            </Form.Group>
-
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={close}>

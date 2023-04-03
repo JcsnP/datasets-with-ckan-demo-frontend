@@ -9,7 +9,7 @@ export default function ResourceCard({name, url, description, metadata_modified,
 			<Card.Body className='d-flex w-100 flex-row align-items-center justify-content-between'>
 				<div className='w-100'>
 					<h4>{name ? name : 'no title'}</h4>
-					<small className="text-muted">{description.length >= 15 ? description.slice(0, 15) + '...' : description}</small>
+					<small className="text-muted">{description.length >= 100 ? description.slice(0, 100) + '...' : description}</small>
 					<div className='d-flex gap-3'>
 						<small className='text-muted'>{moment(metadata_modified).format('LL')}</small>
 						•

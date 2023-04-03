@@ -108,14 +108,17 @@ export default function ViewDatasets({ title = "Datasets" }) {
       const response = await axios.post(
         `${process.env.REACT_APP_CKAN_API}/packages/bookmarked/${datasets.name}`,
         {
+          datasets_name: datasets.name
+        },
+        {
           headers: {
             Authorization: localStorage.getItem("token"),
-            "Content-Type": "application/json",
-          },
+          }
         }
       );
-      console.log(response);
-      if (response.data.status) setIsBookmarked(true);
+
+      if (response.data.ok) setIsBookmarked(true);
+      else alert('bookmark error')
     }
   };
 
@@ -158,21 +161,23 @@ export default function ViewDatasets({ title = "Datasets" }) {
           </div>
         </div>
         <div>
-          <div className="d-flex align-items-center justify-content-between gap-5 my-4">
-            <div>
+          <Row className="my-4">
+            <Col sm={12} md={8}>
               <h1>{datasets.title}</h1>
               <p className="text-muted">{datasets.notes}</p>
-            </div>
-            {
-              thumbnailLoadded ? (
-                <div>
-                  <img src={thumbnail ? `data:image/png;base64,${thumbnail}` : null} alt="thumbnail" height="146" className="rounded" />
-                </div>
-              ) : (
-                <img src={process.env.PUBLIC_URL + '/images/default_thumbnail.png'} alt="default_thumbnail" height="146" className="rounded" />
-              )
-            }
-          </div>
+            </Col>
+            <Col sm={12} md={4} className="text-end my-auto">
+              {
+                thumbnailLoadded ? (
+                  <div>
+                    <img src={thumbnail ? `data:image/png;base64,${thumbnail}` : null} alt="thumbnail" height="180" className="rounded" />
+                  </div>
+                ) : (
+                  <img src={process.env.PUBLIC_URL + '/images/default_thumbnail.png'} alt="default_thumbnail" height="180" className="rounded" />
+                )
+              }
+            </Col>
+          </Row>
         </div>
         <hr />
         <Tabs

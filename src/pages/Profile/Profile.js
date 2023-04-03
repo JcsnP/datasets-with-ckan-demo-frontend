@@ -55,11 +55,16 @@ export default function Profile() {
                     width={100}
                     height={100}
                   />
-                  <div>
+                  <div className="text-end">
                     <h4 className="fw-bold text-end">{userDetails.fullname}</h4>
                     <p className="text-muted">
                       join at {moment(userDetails.created).format("LL")}
                     </p>
+                    {userDetails.sysadmin ? (
+                      <small className="border px-2 rounded shadow-sm bg-danger text-light">Admin</small>
+                    ) : (
+                      <small className="border px-2 rounded shadow-sm bg-primary text-light">Member</small>
+                    )}
                   </div>
                 </div>
 
@@ -71,14 +76,17 @@ export default function Profile() {
                   <p>{userDetails.bio ? userDetails.bio : "no bio"}</p>
                 </div>
 
+                {/*
+                  <Button variant="primary" className="w-100">
+                    Edit Profile
+                  </Button>
+                */}
+
                 {/* buttons */}
                 {localStorage.getItem("username") === user_name && (
                   <div className="d-flex gap-2">
-                    <Button variant="primary" className="w-100">
-                      Edit Profile
-                    </Button>
                     <Button
-                      variant="success"
+                      variant="success shadow-md"
                       className="w-100"
                       style={{ color: "#FFF" }}
                       onClick={() => {

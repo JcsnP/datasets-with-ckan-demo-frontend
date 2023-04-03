@@ -87,6 +87,7 @@ export default function UpdateDatasetsModal({show, close, datasets}) {
 					close()
 				}
 			}
+			console.log(response)
 			window.location.href = `/datasets/${response.data.result.name}`
 			close()
 			/*
