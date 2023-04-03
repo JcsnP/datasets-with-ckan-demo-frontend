@@ -274,11 +274,11 @@ export default function ViewDatasets({ title = "Datasets" }) {
                   </tr>
                   <tr>
                     <td>created</td>
-                    <td>{moment(datasets.metadata_created).format("LLL")}</td>
+                    <td>{moment(datasets.metadata_created).utcOffset('+1400').format('LLL')}</td>
                   </tr>
                   <tr>
                     <td>modified</td>
-                    <td>{moment(datasets.metadata_modified).format("LLL")}</td>
+                    <td>{moment(datasets.metadata_modified).utcOffset('+1400').format('LLL')}</td>
                   </tr>
                   <tr>
                     <td>resources</td>

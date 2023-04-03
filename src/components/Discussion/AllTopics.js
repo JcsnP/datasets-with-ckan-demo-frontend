@@ -40,7 +40,7 @@ export default function AllTopics({package_id}) {
               </small>
               <span> • </span>
               <small className="text-muted">
-                Created at {moment(created).format("LL")}
+                Created at {moment(created).utcOffset('+1400').format('LLL')}
               </small>
             </div>
           </Card.Body>

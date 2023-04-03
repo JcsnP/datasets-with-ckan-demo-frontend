@@ -52,12 +52,17 @@ export default function ViewTopicModal() {
                     {user_name}
                   </span>
                   <span className="d-block text-muted">
-                    {moment(created).format("LL")}
+                    {moment(created).utcOffset('+1400').format("LLL")}
                   </span>
                 </div>
                 {topic.user_name === user_name && (
                   <h5 className="ms-4">
                     <Badge bg="secondary">Topic owner</Badge>
+                  </h5>
+                )}
+                {user_name === 'ckan_admin' && (
+                  <h5 className="ms-4">
+                    <Badge bg="warning">Admin</Badge>
                   </h5>
                 )}
               </div>
@@ -87,7 +92,7 @@ export default function ViewTopicModal() {
                 height={48}
               />
               <span className="text-muted fw-bold">{topic.user_name}</span>
-              <span className="text-muted">{moment(topic).format("LL")}</span>
+              <span className="text-muted">{moment(topic).utcOffset('+1400').format('LLL')}</span>
             </div>
             <div className="my-4">
               <h3 className="fw-bold">{topic.title}</h3>

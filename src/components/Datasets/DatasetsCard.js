@@ -7,7 +7,7 @@ import { faUser, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 // import styles
 import '../../App.css';
 
-export default function DatasetsCard({id, name, title, image = 'https://gravatar.com/avatar/373c0b737835b94074a42350012f267d?s=270&d=identicon', notes = '', author, metadata_modified}) {
+export default function DatasetsCard({id, name, title, image = `${process.env.PUBLIC_URL}/images/default_thumbnail.png`, notes = '', author, metadata_modified}) {
 	const [thumbnail, setThumbnail] = useState(null);
 
 	useEffect(() => {
@@ -31,7 +31,7 @@ export default function DatasetsCard({id, name, title, image = 'https://gravatar
 					{notes?.length ? notes : 'no description'}
 				</Card.Text>
 			</Card.Body>
-			<div className='d-flex flex-row justify-content-between align-items-center border-top px-3 py-2 rounded-bottom' style={{backgroundColor: '#faf7f7'}}>
+			<div className='d-flex flex-row justify-content-between align-items-center border-top px-2 text-lg py-2 rounded-bottom' style={{backgroundColor: '#faf7f7'}}>
 				{/* author */}
 				<div className='text-muted'>
 					<FontAwesomeIcon icon={faUser} size="sm" className='me-1' />
@@ -43,7 +43,7 @@ export default function DatasetsCard({id, name, title, image = 'https://gravatar
 				{/* update_at */}
 				<div className='text-muted'>
 					<FontAwesomeIcon icon={faPenToSquare} size="sm" className='me-1' />
-					{moment(metadata_modified).startOf('hour').fromNow()}
+					{moment(metadata_modified).utcOffset('+1400').format('LL')}
 				</div>
 			</div>
 		</Card>
