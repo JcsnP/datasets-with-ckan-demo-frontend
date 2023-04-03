@@ -44,7 +44,7 @@ export default function UserDatasetsCard ({creator_user_id, name, notes, metadat
       },
     );
     if(response.data.ok) {
-      window.location.reload();
+      window.location.href = `/profile/${localStorage.getItem('username')}`;
     }
   }
 

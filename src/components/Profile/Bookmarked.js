@@ -32,7 +32,7 @@ export default function Bookmarked() {
 
 		fetchBookmarked();
 	}, []);
-	if(bookmarkedLoaded) {
+	if(bookmarkedLoaded && bookmarked.length > 0) {
 		return (
       <>
         {bookmarked.map((item, key) => (
@@ -46,5 +46,12 @@ export default function Bookmarked() {
         ))}
       </>
     );
+	} else {
+		return (
+			<div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+				<img src={`${process.env.PUBLIC_URL}/images/bookmarked.webp`} alt="bookmarked" height="140" width="140" />
+				<h4 className="text-muted">No Bookmarks here</h4>
+			</div>
+		);
 	}
 }

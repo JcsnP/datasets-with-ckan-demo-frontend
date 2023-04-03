@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Modal,
@@ -42,6 +42,7 @@ export default function CreateInitialDatasetsModal({ show, close }) {
         },
       }
     );
+    
     if (response.data.ok) {
       // show success modal
       setSuccess(true);
