@@ -5,7 +5,7 @@ export default function Stats() {
   return(
     <div className="bg-primary">
       <Container className='d-flex align-items-center justify-content-center p-5'>
-        <StatBox title="Datasets" api_resource="packages/number" />
+        <StatBox title="Total number of datasets" api_resource="packages/number" />
       </Container>
     </div>
   );
