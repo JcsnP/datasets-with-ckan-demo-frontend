@@ -8,12 +8,14 @@ export default function UpdateDatasetsModal({show, close, datasets}) {
 	const [notes, setNotes] = useState(datasets.notes);
 	const [tags, setTags] = useState(datasets.tags?.map(item => item.name));
 	const [source, setSource] = useState(datasets.url);
-	const [author, setAuthor] = useState(datasets.author);
+	const [author, setAuthor] = useState(datasets.author ? datasets.author : localStorage.getItem('username'));
 	const [authorEmail, setAuthorEmail] = useState(datasets.author_email)
 	const [allTags, setAllTags] = useState([]);
 	const [thumbnail, setThumbnail] = useState(false);
 
 	const [preview_thumbnail, setPreview_Thumbnail] = useState('');
+
+	const [updateProcessing, setUpdateProcessing] = useState(false);
 
 	useEffect(() => {
 		// fetch tags
@@ -44,6 +46,7 @@ export default function UpdateDatasetsModal({show, close, datasets}) {
 	}
 
 	const updateDatasets = async() => {
+		setUpdateProcessing(true);
 		const payload = {
 			title: title,
 			name: title.toLowerCase().replaceAll(",", "").replaceAll(" ", "-"),
@@ -89,7 +92,7 @@ export default function UpdateDatasetsModal({show, close, datasets}) {
 					close()
 				}
 			}
-			console.log(response)
+			setUpdateProcessing(false);
 			window.location.href = `/datasets/${response.data.result.name}`
 			close()
 			/*
@@ -141,24 +144,9 @@ export default function UpdateDatasetsModal({show, close, datasets}) {
 				      	<Form.Control as="textarea" placeholder="Leave a Noes here" style={{ height: '100px' }} value={notes} onChange={(e) => {setNotes(e.target.value)}} />
 				      </FloatingLabel>
 
-				      <Row>
-				      	<Col md>
-				      		<FloatingLabel controlId="floatingTextarea" label="Tags" className="mb-3">
-						        <Form.Control type="text" placeholder="tags" value={tags} onChange={(e) => {setTags(e.target.value)}} />
-						      </FloatingLabel>
-				      	</Col>
-				      	<Col md>
-				      		<FloatingLabel controlId="floatingSelect" label="License" className="mb-3">
-							      <Form.Select aria-label="Floating label select example">
-							        {
-							        	allTags.map((item, key) => (
-							        		<option value={item}>{item}</option>
-							        	))
-							        }
-							      </Form.Select>
-							    </FloatingLabel>
-				      	</Col>
-				      </Row>
+		      		<FloatingLabel controlId="floatingTextarea" label="Tags" className="mb-3">
+				        <Form.Control type="text" placeholder="tags" value={tags} onChange={(e) => {setTags(e.target.value)}} />
+				      </FloatingLabel>
 
 				      <FloatingLabel controlId="floatingTextarea" label="Source" className="mb-3">
 				        <Form.Control type="text" placeholder="source, url" value={source} onChange={(e) => {setSource(e.target.value)}} />
@@ -184,7 +172,13 @@ export default function UpdateDatasetsModal({show, close, datasets}) {
           <Button variant="secondary" onClick={close}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={() => {updateDatasets()}}>Update</Button>
+          <Button
+          	variant="primary"
+          	disabled={updateProcessing}
+          	onClick={!updateProcessing ? updateDatasets : null}
+          >
+          	{updateProcessing ? 'Updating...' : 'Update'}
+          </Button>
         </Modal.Footer>
       </Modal>
 		</>

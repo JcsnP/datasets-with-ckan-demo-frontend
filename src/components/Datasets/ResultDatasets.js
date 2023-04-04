@@ -16,9 +16,12 @@ export default function ResultDatasets() {
 		try {
 			// ${searchParams.get('q') ? searchParams.get('q') : ''}
 			const q = searchParams.get('q') || '';
-			const tags = searchParams.get('tags');
+			const tags = searchParams.getAll('tags');
+			const tag_str = tags.map(tag => `tags=${tag}`).join('&')
 
-			fetch(`${process.env.REACT_APP_CKAN_API}/packages/search?q=${q}${tags ? `&tags=${tags}` : ''}`)
+			// console.log(`${process.env.REACT_APP_CKAN_API}/packages/search?q=${q}${tags ? `${tag_str}` : ''}`)
+
+			fetch(`${process.env.REACT_APP_CKAN_API}/packages/search?q=${q}&${tags ? `${tag_str}` : ''}`)
 				.then((response) => response.json())
 				.then((data) => {
 					if(data.ok) {

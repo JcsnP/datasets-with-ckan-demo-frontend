@@ -51,25 +51,9 @@ export default function UserDatasetsCard ({creator_user_id, name, notes, metadat
 	const popover = (
     <Popover id="popover-basic" style={{ width: "14em" }}>
       <Popover.Body>
-        <div className="my-2" style={{ cursor: "pointer" }}>
-          Bookmark
+        <div className="my-2 text-danger" style={{ cursor: "pointer" }} onClick={() => {setShow(true);}}>
+          Delete
         </div>
-        {creator_user_id === localStorage.getItem("user_id") && (
-          <>
-            <div className="my-2" style={{ cursor: "pointer" }}>
-              Edit
-            </div>
-            <div
-              className="my-2 text-danger"
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                setShow(true);
-              }}
-            >
-              Delete
-            </div>
-          </>
-        )}
       </Popover.Body>
     </Popover>
   );
@@ -95,14 +79,16 @@ export default function UserDatasetsCard ({creator_user_id, name, notes, metadat
               >
                 <h5>{name}</h5>
               </a>
-              <OverlayTrigger
-                trigger="click"
-                placement="right"
-                overlay={popover}
-                rootClose
-              >
-                <FontAwesomeIcon icon={faEllipsisVertical} size="lg" />
-              </OverlayTrigger>
+              { creator_user_id === localStorage.getItem("user_id") && (
+                <OverlayTrigger
+                  trigger="click"
+                  placement="right"
+                  overlay={popover}
+                  rootClose
+                >
+                  <FontAwesomeIcon icon={faEllipsisVertical} size="lg" />
+                </OverlayTrigger>
+              )}
             </div>
             <div className="d-flex align-items-center justify-content-between text-muted">
               <small>

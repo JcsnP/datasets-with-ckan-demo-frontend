@@ -19,8 +19,8 @@ export default function RecommendDatasets() {
   }, []);
   return(
     <Container className='py-5'>
-      <h1 className='fw-bold'>Datasets</h1>
-      <h4 className='text-muted'>รายการดาต้าเซ็ทที่แนะนำ</h4>
+      <h1 className='fw-bold'>Latest Datasets</h1>
+      <h4 className='text-muted'>รายการชุดข้อมูลล่าสุด</h4>
 
       {
         datasetsLoaded && (
