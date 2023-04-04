@@ -29,6 +29,7 @@ import ViewTopic from "../../components/Discussion/ViewTopic.js";
 import Cookies from "js-cookie";
 import UpdateDatasetsModal from "../../components/Datasets/UpdateDatasetsModal.js";
 import UpdateResourcesModal from "../../components/Resources/UpdateResourcesModal.js";
+import AdditionalDetailsTable from "../../components/Datasets/AdditionalDetailsTable.js";
 
 export default function ViewDatasets({ title = "Datasets" }) {
   const { datasets_name, topic_id } = useParams();
@@ -87,6 +88,11 @@ export default function ViewDatasets({ title = "Datasets" }) {
       })
       .catch((error) => console.log(error))
     }, [datasetsLoaded, thumbnailLoadded]);
+
+  // get user permission
+  useEffect(() => {
+
+  }, []);
 
   const bookmarked = async() => {
     // check current status
@@ -221,7 +227,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
               <Row className="my-4">
                 <Col sm={8}>
                   {/* resource view */}
-                  {datasets.resources.map((item, key) => (
+                  {datasets.resources?.map((item, key) => (
                     <ResourceCard
                       name={item.name}
                       url={item.url}
@@ -232,10 +238,9 @@ export default function ViewDatasets({ title = "Datasets" }) {
                     />
                   ))}
 
-                  {/* if datasets has non resource */}
-                  {datasets.resources.length === 0 && (
-                    <Alert variant="warning">No Resouce</Alert>
-                  )}
+                  {/* if datasets has no resource */}
+                  {datasets.resources.length === 0 && (<Alert variant="warning">No Resouce</Alert>)}
+
                 </Col>
                 <Col sm={4}>
                   <h5 className="text-end fw-bold">Data</h5>
@@ -243,49 +248,14 @@ export default function ViewDatasets({ title = "Datasets" }) {
               </Row>
 
               {/* additional details */}
-              <h4>Additional Details</h4>
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Field</th>
-                    <th>Value</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>type</td>
-                    <td>{datasets.type}</td>
-                  </tr>
-                  <tr>
-                    <td>author</td>
-                    <td>{datasets.author}</td>
-                  </tr>
-                  <tr>
-                    <td>author email</td>
-                    <td>{datasets.author_email}</td>
-                  </tr>
-                  <tr>
-                    <td>license title</td>
-                    <td>{datasets.license_title}</td>
-                  </tr>
-                  <tr>
-                    <td>license url</td>
-                    <td>{datasets.license_url}</td>
-                  </tr>
-                  <tr>
-                    <td>created</td>
-                    <td>{moment(datasets.metadata_created).utcOffset('+1400').format('LLL')}</td>
-                  </tr>
-                  <tr>
-                    <td>modified</td>
-                    <td>{moment(datasets.metadata_modified).utcOffset('+1400').format('LLL')}</td>
-                  </tr>
-                  <tr>
-                    <td>resources</td>
-                    <td>{datasets.num_resources}</td>
-                  </tr>
-                </tbody>
-              </Table>
+              <AdditionalDetailsTable
+                type={datasets.type}
+                author={datasets.author} 
+                author_email={datasets.author_email}
+                metadata_created={datasets.metadata_created}
+                metadata_modified={datasets.metadata_modified}
+                num_resources={datasets.num_resources}
+              />
             </>
           </Tab>
           <Tab eventKey="discussion" title="Discussion">
