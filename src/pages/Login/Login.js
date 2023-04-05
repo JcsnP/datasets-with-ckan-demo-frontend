@@ -38,7 +38,7 @@ export default function Login() {
 			// Cookies.get('username);
 			window.location.replace('/');
 		} else {
-			alert('Login Failed');
+			alert('Login Failed. Invalid Username or Password');
 		}
 	}
 

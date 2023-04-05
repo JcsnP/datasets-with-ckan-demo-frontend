@@ -9,7 +9,6 @@ import '../../App.css';
 
 export default function DatasetsCard({id, name, title, image = `${process.env.PUBLIC_URL}/images/default_thumbnail.png`, notes = '', author, metadata_modified}) {
 	const [thumbnail, setThumbnail] = useState(null);
-
 	useEffect(() => {
 		fetch(`${process.env.REACT_APP_CKAN_API}/packages/${id}/thumbnail`)
 			.then((response) => response.json())
@@ -18,7 +17,7 @@ export default function DatasetsCard({id, name, title, image = `${process.env.PU
 					setThumbnail(data.result);
 				}
 			})
-	}, []);
+	}, [thumbnail]);
 
 	return(
 		<Card className='shadow-sm mb-3 pointer' onClick={() => {window.location.href=`/datasets/${name}`}}>

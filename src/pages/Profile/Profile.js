@@ -72,7 +72,7 @@ export default function Profile() {
 
                 {/* bio */}
                 <div>
-                  <h5 className="text-uppercase text-muted">bio</h5>
+                  <h5 className="text-uppercase text-muted">Bio</h5>
                   <p>{userDetails.bio ? userDetails.bio : "no bio"}</p>
                 </div>
 
@@ -109,15 +109,28 @@ export default function Profile() {
               <Tab eventKey="datasets" title="My Datasets" className="py-3">
                 {/* my datasets */}
                 {/* show the datasets if user has datasets */}
-                {userDetails.datasets.map((item, key) => (
-                  <UserDatasetsCard
-                    creator_user_id={item.creator_user_id}
-                    name={item.name}
-                    notes={item.notes}
-                    metadata_modified={item.metadata_modified}
-                    key={key}
-                  />
-                ))}
+                {
+                  userDetails.datasets.length ? (
+                    <>
+                      {
+                        userDetails.datasets.map((item, key) => (
+                          <UserDatasetsCard
+                            creator_user_id={item.creator_user_id}
+                            name={item.name}
+                            notes={item.notes}
+                            metadata_modified={item.metadata_modified}
+                            key={key}
+                          />
+                      ))
+                      }
+                    </>
+                  ) : (
+                    <div className="w-100 h-100 d-flex flex-column align-items-center justify-content-center">
+                      <img src={`${process.env.PUBLIC_URL}/images/3d-folder.webp`} alt="bookmarked" height="120" width="120" />
+                      <h4 className="text-muted">No Datasets here</h4>
+                    </div>
+                  )
+                }
               </Tab>
               {localStorage.getItem("username") === userDetails.name && (
                 <Tab

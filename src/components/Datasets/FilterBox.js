@@ -4,7 +4,7 @@ export default function FilterBox({data}) {
 	return(
 		{
 			data.map((item, key) => (
-				<Card body style={{cursor: 'pointer'}}>
+				<Card body style={{cursor: 'pointer'}} className="shadow-sm">
 					{title}
 				</Card>
 			))

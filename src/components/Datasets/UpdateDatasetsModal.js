@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, FloatingLabel, Row, Col } from 'react-bootstrap';
+import { Modal, Button, Form, FloatingLabel, Row, Col, OverlayTrigger, Popover } from 'react-bootstrap';
 import axios from 'axios';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTriangleExclamation, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 export default function UpdateDatasetsModal({show, close, datasets}) {
 
@@ -102,6 +104,33 @@ export default function UpdateDatasetsModal({show, close, datasets}) {
 		}
 	}
 
+	const deletePackage = async() => {
+		const response = await axios.delete(
+			`${process.env.REACT_APP_CKAN_API}/packages/${datasets.name}`,
+			{
+				headers: {
+					"Content-Type": "multipart/form-data",
+					Authorization: localStorage.getItem('token')
+				}
+			}
+		)
+		if(response.data.ok) {
+			window.location.href = "/profile/" + localStorage.getItem('username');
+		}
+	}
+
+	const popover = (
+	  <Popover id="popover-basic">
+	    <Popover.Header as="h3">Are you sure ?</Popover.Header>
+	    <Popover.Body>
+	      <Button variant="danger" onClick={() => deletePackage()} className="w-100">
+	      	<FontAwesomeIcon icon={faTrash} style={{color: "#ffffff"}} className="me-2" />
+	      	Delete
+	      </Button>
+	    </Popover.Body>
+	  </Popover>
+	);
+
 	return(
 		<>
 		<Modal
@@ -169,9 +198,15 @@ export default function UpdateDatasetsModal({show, close, datasets}) {
 
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={close}>
+        	<Button variant="light" onClick={close} className="border">
             Cancel
           </Button>
+          <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+				    <Button variant="danger">
+	        		<FontAwesomeIcon icon={faTriangleExclamation} style={{color: "#ffffff"}} className="me-2" />
+	        		Delete
+	        	</Button>
+				  </OverlayTrigger>
           <Button
           	variant="primary"
           	disabled={updateProcessing}

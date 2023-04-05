@@ -243,7 +243,7 @@ export default function UpdateResourcesModal({show, close, datasets_resources, d
 
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={close}>
+        <Button variant="secondary" onClick={() => window.location.reload()}>
           Close
         </Button>
         <Button

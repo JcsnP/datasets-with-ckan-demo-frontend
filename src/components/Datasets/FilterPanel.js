@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Container, Card, Badge, ListGroup } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTag } from "@fortawesome/free-solid-svg-icons";
@@ -7,9 +8,11 @@ import { faTag } from "@fortawesome/free-solid-svg-icons";
 // import FilterBox from './FilterPanel.js';
 
 export default function FilterPanel() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [tags, setTags] = useState([]);
-  const [groups, setGroups] = useState([]);
-  const [organizations, setOrganizations] = useState([]);
+
+  const query_tags = searchParams.getAll('tags');
 
   useEffect(() => {
     try {
@@ -25,21 +28,16 @@ export default function FilterPanel() {
     }
   }, []);
 
-  const handleTagClick = (tag) => {
-    // Parse current query string
-    const searchParams = new URLSearchParams(window.location.search);
-    // Get existing tags, if any
-    const existingTags = searchParams.getAll('tags');
-    // Add new tag to list of existing tags
-    const tags = [...existingTags, tag];
-    // Generate new query string with updated tags
-    const newSearchParams = new URLSearchParams();
-    for (const t of tags) {
-      newSearchParams.append('tags', t);
-    }
-    const newQueryString = newSearchParams.toString();
-    // Navigate to new URL
-    window.location.href = window.location.href + newQueryString;
+  const addTag = (tag) => {
+    setSearchParams((prevSearchParams) => {
+      const newSearchParams = new URLSearchParams(prevSearchParams);
+      newSearchParams.set('tags', tag);
+      return newSearchParams;
+    })
+  }
+
+  const handleClick = (tag) => {
+    addTag(tag);
   }
 
   return (
@@ -51,7 +49,15 @@ export default function FilterPanel() {
         </h4>
         <ListGroup variant="flush">
           {tags.map((item, key) => (
-            <ListGroup.Item className="rounded mb-1" onClick={() => handleTagClick(item)} key={key}>{item}</ListGroup.Item>
+            <ListGroup.Item
+              className={`rounded mb-1 ${query_tags.includes(item) ? 'bg-light' : ''}`}
+              onClick={() => handleClick(item)}
+              style={{cursor: 'pointer'}} 
+              key={key}
+            >
+              {item}
+              
+            </ListGroup.Item>
           ))}
         </ListGroup>
       </div>

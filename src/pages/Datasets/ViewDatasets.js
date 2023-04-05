@@ -268,7 +268,8 @@ export default function ViewDatasets({ title = "Datasets" }) {
                 </Card>
               )}
 
-              {datasets.creator_user_id === localStorage.getItem("user_id") && (
+              {(datasets.creator_user_id === localStorage.getItem("user_id") ||
+              isUserAdmin) && (
                 <div className="d-flex align-items-center justify-content-between my-3">
                   <h4 className="mt-4">Resources</h4>
                   <Button
@@ -285,7 +286,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
 
               <Row className="my-4">
                 <Col sm={9}>
-                  <h5 className="text-start fw-bold">Resources</h5>
+                  <h5 className="text-start fw-bold">{datasets.num_resources} Resources</h5>
                   {/* resource view */}
                   {datasets.resources?.map((item, key) => (
                     <ResourceCard
@@ -308,7 +309,7 @@ export default function ViewDatasets({ title = "Datasets" }) {
                   <div className="d-flex gap-2 align-items-center justify-content-end">
                     <FacebookShareButton
                       url={window.location.href}
-                      quote={"I found an interesting dataset!!!"}
+                      quote="I found an interesting dataset!!!`"
                     >
                       <FacebookIcon size={40} round />
                     </FacebookShareButton>

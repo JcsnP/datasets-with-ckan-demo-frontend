@@ -26,7 +26,7 @@ export default function Datasets() {
 				<Col sm={8}>
 					<Container  className='my-5'>
 						{/* search datasets */}
-        		<SearchDatasets />
+        		{/* <SearchDatasets /> */}
 
         		{/* result */}
         		<ResultDatasets />

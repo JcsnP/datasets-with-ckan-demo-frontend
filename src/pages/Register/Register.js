@@ -27,6 +27,9 @@ export default function Register(argument) {
 		if(password !== confirmPassword)
 			return alert('Password not matched');
 
+		if(password.length < 8)
+			return alert('Your password must be at least 8 characters');
+
 		try {
 			const response = await axios.post(
 				`${process.env.REACT_APP_CKAN_API}/users/`,
@@ -74,27 +77,36 @@ export default function Register(argument) {
 						<Form className='w-100'>
 						 	<h1 className="fw-bold text-uppercase">Register</h1>
 
-						 	<FloatingLabel controlId="floatingTextarea" label="Username" className="mb-3">
+						 	<FloatingLabel controlId="floatingTextareaUserame" label="Username" className="mb-3">
 				        <Form.Control type="text" placeholder='Johndoe' value={name} onChange={(e) => {setName(e.target.value)}} />
 				      </FloatingLabel>
 
-				      <FloatingLabel controlId="floatingTextarea" label="Fullname" className="mb-3">
+				      <FloatingLabel controlId="floatingTextareaFullname" label="Fullname" className="mb-3">
 				        <Form.Control type="text" placeholder='John doe' value={fullname} onChange={(e) => {setFullname(e.target.value)}} />
 				      </FloatingLabel>
 
-				      <FloatingLabel controlId="floatingTextarea" label="Email" className="mb-3">
+				      <FloatingLabel controlId="floatingTextareaEmail" label="Email" className="mb-3">
 				        <Form.Control type="email" placeholder='johndoe@gmail.com' value={email} onChange={(e) => {setEmail(e.target.value)}} />
 				      </FloatingLabel>
 
-				      <FloatingLabel controlId="floatingTextarea" label="Password" className="mb-3">
-				        <Form.Control type="password" placeholder='********' value={password} onChange={(e) => {setPassword(e.target.value)}} />
+				      <Row>
+				      	<Col>
+									<FloatingLabel controlId="floatingTextareaPassword" label="Password" className="mb-3">
+						        <Form.Control type="password" placeholder='********' value={password} onChange={(e) => {setPassword(e.target.value)}} />
+						      </FloatingLabel>
+				      	</Col>
+				      	<Col>
+									<FloatingLabel controlId="floatingTextareaConfirmPassword" label="Confirm Password" className="mb-3">
+						        <Form.Control type="password" placeholder='********' value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}} />
+						      </FloatingLabel>
+				      	</Col>
+				      </Row>
+
+				      <FloatingLabel controlId="floatingTextareaAbout" label="Bio" className="mb-3">
+				        <Form.Control as="textarea" placeholder='image link' value={about} onChange={(e) => {setAbout(e.target.value)}} />
 				      </FloatingLabel>
 
-				      <FloatingLabel controlId="floatingTextarea" label="Confirm Password" className="mb-3">
-				        <Form.Control type="password" placeholder='********' value={confirmPassword} onChange={(e) => {setConfirmPassword(e.target.value)}} />
-				      </FloatingLabel>
-
-				      <FloatingLabel controlId="floatingTextarea" label="Image URL" className="mb-3">
+				      <FloatingLabel controlId="floatingTextareaImageURL" label="Image URL" className="mb-3">
 				        <Form.Control type="text" placeholder='image link' value={imageURL} onChange={(e) => {setImageUrl(e.target.value)}} />
 				        <Form.Text>Optional</Form.Text>
 				      </FloatingLabel>
