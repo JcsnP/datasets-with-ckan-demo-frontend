@@ -73,7 +73,7 @@ export default function Profile() {
                 {/* bio */}
                 <div>
                   <h5 className="text-uppercase text-muted">Bio</h5>
-                  <p>{userDetails.bio ? userDetails.bio : "no bio"}</p>
+                  <p>{userDetails.about ? userDetails.about : "no bio"}</p>
                 </div>
 
                 {/*
